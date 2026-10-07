@@ -1,0 +1,293 @@
+/* =====================================================================
+   css/admin.css — Estilos del panel de administración (admin.html)
+   Responsable: Persona 3: Luz (base de datos)
+   El panel NO usa Tailwind; todo su estilo vive aquí.
+   ===================================================================== */
+
+:root {
+  --kraft: #e6d5b8;
+  --papel: #fff8ec;
+  --tinta: #3b2e2a;
+  --verde: #3fa393;
+  --rosa: #f4a6c8;
+  --amarillo: #f5dd7e;
+  --azul: #9ec5ec;
+  --lila: #bba6e6;
+  --error: #c6423a;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--kraft);
+  color: var(--tinta);
+  font-family: Nunito, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+h1,
+h2,
+h3 {
+  font-family: "Lilita One", Nunito, sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+:focus-visible {
+  outline: 3px solid var(--verde);
+  outline-offset: 2px;
+}
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.hoja {
+  background: var(--papel);
+  border: 3px solid var(--tinta);
+  border-radius: 18px;
+  box-shadow: 5px 5px 0 var(--tinta);
+  padding: 20px;
+}
+.btn {
+  background: var(--verde);
+  color: #fff;
+  border: 3px solid var(--tinta);
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--tinta);
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--tinta);
+}
+.btn.sec {
+  background: var(--papel);
+  color: var(--tinta);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+label {
+  display: block;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  background: #fff;
+  border: 2px solid var(--tinta);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.msg {
+  margin-top: 10px;
+  font-weight: 800;
+  min-height: 1.4em;
+}
+.msg.err {
+  color: var(--error);
+}
+.msg.ok {
+  color: var(--verde);
+}
+
+/* Login */
+#login {
+  max-width: 400px;
+  margin: 12vh auto 0;
+}
+#login h1 {
+  font-size: 34px;
+  margin-bottom: 4px;
+}
+#login p {
+  margin: 0 0 18px;
+}
+#login .campo {
+  margin-bottom: 12px;
+}
+
+/* Encabezado y pestañas */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+header h1 {
+  font-size: 32px;
+}
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+nav button {
+  background: var(--papel);
+  border: 3px solid var(--tinta);
+  border-radius: 30px;
+  padding: 6px 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+nav button[aria-selected="true"] {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+/* Martes actual */
+.hoy {
+  background: var(--amarillo);
+  margin-bottom: 18px;
+}
+.hoy h2 {
+  font-size: 28px;
+}
+.hoy .platillo {
+  font-weight: 800;
+  margin: 2px 0 14px;
+}
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+.cifra {
+  background: var(--papel);
+  border: 2px solid var(--tinta);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.cifra .n {
+  font-family: "Lilita One";
+  font-size: 34px;
+  line-height: 1;
+}
+.cifra input {
+  font-family: "Lilita One";
+  font-size: 28px;
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+
+/* Tablas */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.tabla th {
+  text-align: left;
+  font-weight: 900;
+  border-bottom: 3px solid var(--tinta);
+  padding: 8px 6px;
+}
+.tabla td {
+  border-bottom: 1.5px dashed #cdbb9e;
+  padding: 8px 6px;
+  vertical-align: middle;
+}
+.scroll {
+  overflow-x: auto;
+}
+.tabla input[type="number"] {
+  width: 80px;
+  padding: 4px 6px;
+}
+.tabla input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--verde);
+}
+.vacio {
+  padding: 18px 6px;
+  font-weight: 700;
+}
+
+.seccion {
+  margin-top: 18px;
+}
+.seccion h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+.chip {
+  display: inline-block;
+  border: 2px solid var(--tinta);
+  border-radius: 20px;
+  padding: 0 10px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.barra {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.barra > div {
+  min-width: 220px;
+}
+.turno {
+  border-top: 2px solid var(--tinta);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.turno:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+@media (max-width: 520px) {
+  .cifras {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cifras > div:last-child {
+    grid-column: 1/-1;
+  }
+}
+[hidden] {
+  display: none !important;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  nav,
+  header button,
+  .no-print {
+    display: none !important;
+  }
+  .hoja {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+}
