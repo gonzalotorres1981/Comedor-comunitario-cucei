@@ -1,35 +1,121 @@
 <!DOCTYPE html>
-<!-- index.html | Responsable: Persona 2 (diseño) -->
+<!-- index.html | Responsable: Persona 2 (diseño). Primera versión hecha con apoyo de Persona 3 (Luz). -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Comedor Comunitario | Inicio</title>
+  <title>Comedor Comunitario CUCEI</title>
+  <meta name="description" content="Cada martes, comida para la comunidad del CUCEI. Reserva tu plato, dona o súmate como voluntario.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="menu.html">Menú</a></li>
-        <li><a href="donaciones.html">Donaciones</a></li>
-        <li><a href="voluntariado.html">Voluntariado</a></li>
-        <li><a href="impacto.html">Impacto</a></li>
-        <li><a href="privacidad.html">Privacidad</a></li>
-      </ul>
-    </nav>
+<body class="bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
+
+  <!-- ============ ENCABEZADO (igual en todas las páginas públicas) ============
+       Para usarlo en otra página: copiar este <header> completo y mover
+       aria-current="page" al enlace de esa página. -->
+  <header class="border-b-[3px] border-[#3D2D28] bg-[#FDF6E9]">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <a href="index.html" class="font-['Lilita_One'] text-2xl leading-none focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] rounded-lg">Comedor Comunitario CUCEI</a>
+      <nav aria-label="Principal">
+        <ul class="flex flex-wrap gap-2 text-base font-extrabold">
+          <li><a href="index.html" aria-current="page" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Inicio</a></li>
+          <li><a href="menu.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Menú</a></li>
+          <li><a href="donaciones.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Donaciones</a></li>
+          <li><a href="voluntariado.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Voluntariado</a></li>
+          <li><a href="impacto.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Impacto</a></li>
+          <li><a href="privacidad.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Privacidad</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <h1>Comedor Comunitario</h1>
-    <!-- Portada: presentación del comedor, horario de servicio y accesos rápidos a reservar, donar y ser voluntario.
-       Diseño: Persona 2. -->
+    <!-- ============ PORTADA ============ -->
+    <section class="max-w-5xl mx-auto px-4 pt-12 pb-16 grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
+      <div>
+        <h1 class="font-['Lilita_One'] text-5xl sm:text-6xl leading-[1.05]">Comida para la comunidad, cada martes</h1>
+        <p class="mt-5 max-w-xl">El Comedor Comunitario del CUCEI lo organizan estudiantes del Movimiento Estudiantil. Reserva tu plato para que sepamos cuánto preparar y nadie se quede sin comer.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="menu.html" class="rounded-full border-[3px] border-[#3D2D28] bg-[#43A592] px-7 py-3 font-extrabold text-white shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Ver el menú y reservar</a>
+          <a href="voluntariado.html" class="rounded-full border-[3px] border-[#3D2D28] bg-[#FFFCF5] px-7 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Quiero ayudar</a>
+        </div>
+      </div>
+
+      <!-- Nota pegada con cinta: el dato que más se busca -->
+      <aside class="relative mx-auto w-full max-w-sm rotate-[-2deg]" aria-label="Horario">
+        <span aria-hidden="true" class="absolute -top-4 left-1/2 -translate-x-1/2 h-8 w-32 bg-[#EADDB8] rotate-[3deg]"></span>
+        <div class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#F4DE80] p-8 shadow-[8px_8px_0_#3D2D28]">
+          <p class="font-['Lilita_One'] text-4xl">Martes</p>
+          <p class="font-['Lilita_One'] text-3xl mt-1">1:00 a 6:00 p.m.</p>
+          <hr class="my-5 border-t-2 border-dashed border-[#3D2D28]">
+          <p class="font-bold">Reserva antes del lunes a las 3:00 p.m.</p>
+          <p class="mt-2">Si no alcanzaste, llega sin reserva: atendemos mientras haya comida.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ============ CÓMO FUNCIONA ============ -->
+    <section class="bg-[#FFFCF5] border-y-[3px] border-[#3D2D28]">
+      <div class="max-w-5xl mx-auto px-4 py-14">
+        <h2 class="font-['Lilita_One'] text-4xl mb-8">Cómo funciona</h2>
+        <ol class="grid gap-6 md:grid-cols-3">
+          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#F2A7C9] p-6 shadow-[6px_6px_0_#3D2D28]">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#FFFCF5] font-['Lilita_One'] text-2xl">1</span>
+            <h3 class="font-['Lilita_One'] text-2xl mt-4">Reserva</h3>
+            <p class="mt-2">Elige tu carrera y semestre en la página del menú. No pedimos tu nombre ni tu correo.</p>
+          </li>
+          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#9DC4EC] p-6 shadow-[6px_6px_0_#3D2D28]">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#FFFCF5] font-['Lilita_One'] text-2xl">2</span>
+            <h3 class="font-['Lilita_One'] text-2xl mt-4">Guarda tu código</h3>
+            <p class="mt-2">Te damos un código de cuatro letras y números. Toma captura.</p>
+          </li>
+          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#8CC9AF] p-6 shadow-[6px_6px_0_#3D2D28]">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#FFFCF5] font-['Lilita_One'] text-2xl">3</span>
+            <h3 class="font-['Lilita_One'] text-2xl mt-4">Recoge tu plato</h3>
+            <p class="mt-2">El martes, di tu código y muestra tu credencial UdeG.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ AYUDAR ============ -->
+    <section class="max-w-5xl mx-auto px-4 py-14">
+      <h2 class="font-['Lilita_One'] text-4xl">El comedor funciona gracias a la comunidad</h2>
+      <p class="mt-3 max-w-2xl">Todo lo que se sirve sale de donativos y del tiempo de voluntarios. Si puedes, súmate.</p>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <a href="donaciones.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#B9A5E6] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
+          <h3 class="font-['Lilita_One'] text-3xl">Dona</h3>
+          <p class="mt-2">Arroz, frijol, latas, aceite, garrafones de agua, platos y vasos reutilizables, o dinero.</p>
+          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">Ver qué necesitamos</p>
+        </a>
+        <a href="voluntariado.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#F6BE96] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
+          <h3 class="font-['Lilita_One'] text-3xl">Sé voluntario</h3>
+          <p class="mt-2">Cocina en tu casa un platillo, ayuda a servir o a lavar trastes el martes.</p>
+          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">Ver turnos</p>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <a href="privacidad.html">Aviso de privacidad</a>
+  <!-- ============ PIE DE PÁGINA (igual en todas las páginas públicas) ============ -->
+  <footer class="border-t-[3px] border-[#3D2D28] bg-[#3D2D28] text-[#FDF6E9]">
+    <div class="max-w-5xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-2 text-base">
+      <div>
+        <p class="font-['Lilita_One'] text-2xl">Comedor Comunitario CUCEI</p>
+        <p class="mt-2">Organizado por el Movimiento Estudiantil CUCEI.</p>
+        <p class="mt-1">Punto de acopio: Edificio "Y" (Chedraui).</p>
+      </div>
+      <div class="sm:text-right space-y-1">
+        <p><a href="mailto:cucei.comedorcomunitario@gmail.com" class="underline break-all">cucei.comedorcomunitario@gmail.com</a></p>
+        <p>Instagram: @movimientoestudiantil_cucei</p>
+        <p><a href="privacidad.html" class="underline">Aviso de privacidad</a></p>
+        <p class="pt-2 text-sm opacity-80">Proyecto de Ingeniería y Sustentabilidad, CUCEI, 2026B.</p>
+      </div>
+    </div>
   </footer>
+
 </body>
 </html>
