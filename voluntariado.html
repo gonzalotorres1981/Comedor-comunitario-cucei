@@ -5,10 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Voluntariado | Comedor Comunitario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+<body class="bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28]">
   <header>
     <nav>
       <ul>
@@ -22,10 +24,11 @@
     </nav>
   </header>
 
-  <main>
-    <h1>Voluntariado</h1>
-    <!-- Turnos disponibles (cocinar, servir, lavar trastes) y formulario de inscripción.
-       Diseño: Persona 2. Formulario (js/voluntariado.js): Persona 4. -->
+  <main class="max-w-2xl mx-auto px-4 py-10">
+    <h1 class="font-['Lilita_One'] text-5xl mb-3">Voluntariado</h1>
+    <p class="text-lg mb-8">Elige un turno para ayudar al comedor. Cocinar es en tu casa; servir y lavar, en el comedor.</p>
+    <!-- Diseño de la página: Persona 2. Los turnos y la inscripción los dibuja js/voluntariado.js aquí adentro. -->
+    <div id="turnos"></div>
   </main>
 
   <footer>

@@ -1,39 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <!-- menu.html | Responsable: Persona 2 (diseño) -->
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Menú del martes | Comedor Comunitario</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/estilos.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="menu.html">Menú</a></li>
-        <li><a href="donaciones.html">Donaciones</a></li>
-        <li><a href="voluntariado.html">Voluntariado</a></li>
-        <li><a href="impacto.html">Impacto</a></li>
-        <li><a href="privacidad.html">Privacidad</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menú del martes | Comedor Comunitario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body class="bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28]">
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Menú</a></li>
+          <li><a href="donaciones.html">Donaciones</a></li>
+          <li><a href="voluntariado.html">Voluntariado</a></li>
+          <li><a href="impacto.html">Impacto</a></li>
+          <li><a href="privacidad.html">Privacidad</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <main>
-    <h1>Menú del martes</h1>
-    <!-- Menú del martes, lugares disponibles y formulario de reserva.
-       Diseño: Persona 2. Formulario (js/reservas.js): Persona 4. -->
-  </main>
+    <main class="max-w-2xl mx-auto px-4 py-10">
+      <h1 class="font-['Lilita_One'] text-5xl mb-8">Menú del martes</h1>
+      <!-- Diseño de la página: Persona 2. El menú y el formulario los dibuja js/reservas.js aquí adentro. -->
+      <div id="reserva"></div>
+    </main>
 
-  <footer>
-    <a href="privacidad.html">Aviso de privacidad</a>
-  </footer>
+    <footer>
+      <a href="privacidad.html">Aviso de privacidad</a>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
-  <script src="js/reservas.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/reservas.js"></script>
+  </body>
 </html>

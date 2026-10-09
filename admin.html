@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- admin.html — Panel de administración del comedor | Responsable: Persona 3 (base de datos) -->
+<!-- Privacidad: reservas y voluntarios se identifican por código, sin nombre ni correo. -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -56,7 +57,7 @@
         <div><label for="m-platillo">Platillo</label><input id="m-platillo" required maxlength="120"></div>
         <div><label for="m-porciones">Porciones disponibles</label><input id="m-porciones" type="number" min="1" required></div>
         <div><label for="m-cierre-f">Cierre de reservas (día)</label><input id="m-cierre-f" type="date" required></div>
-        <div><label for="m-cierre-h">Cierre de reservas (hora)</label><input id="m-cierre-h" type="time" value="18:00" required></div>
+        <div><label for="m-cierre-h">Cierre de reservas (hora)</label><input id="m-cierre-h" type="time" value="15:00" required></div>
         <div style="grid-column:1/-1"><label for="m-desc">Descripción (opcional)</label><textarea id="m-desc" rows="2" maxlength="400"></textarea></div>
         <div><button class="btn" type="submit">Publicar menú</button></div>
       </form>
@@ -73,7 +74,7 @@
       </div>
       <h3 id="r-titulo" style="font-size:22px;margin-bottom:10px"></h3>
       <div class="scroll"><table class="tabla">
-        <thead><tr><th>Nombre</th><th>Correo</th><th>Carrera</th><th>Sem.</th><th>Reservó</th></tr></thead>
+        <thead><tr><th>Código</th><th>Carrera</th><th>Sem.</th><th>Reservó</th></tr></thead>
         <tbody id="lista-reservas"></tbody>
       </table></div>
     </div>
@@ -85,7 +86,7 @@
       <h3 style="font-size:22px;margin-bottom:4px">Donaciones registradas</h3>
       <p style="margin:0 0 10px">Marca cada donación cuando el comedor la reciba. Solo las recibidas cuentan en las gráficas.</p>
       <div class="scroll"><table class="tabla">
-        <thead><tr><th>Fecha</th><th>Tipo</th><th>Cantidad</th><th>Detalle</th><th>Quién</th><th>Recibida</th></tr></thead>
+        <thead><tr><th>Fecha</th><th>Tipo</th><th>Cantidad</th><th>Detalle</th><th>Recibida</th></tr></thead>
         <tbody id="lista-donaciones"></tbody>
       </table></div>
       <div class="msg" id="msg-don" role="status"></div>
@@ -109,7 +110,7 @@
     </div>
     <div class="hoja seccion">
       <h3>Turnos y asistencia</h3>
-      <p style="margin:0 0 10px">Marca a quienes sí llegaron. Solo esas horas cuentan en las gráficas.</p>
+      <p style="margin:0 0 10px">Marca a quienes sí llegaron, buscándolos por su código. Solo esas horas cuentan en las gráficas.</p>
       <div id="lista-turnos"></div>
     </div>
   </section>

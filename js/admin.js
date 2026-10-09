@@ -5,11 +5,15 @@
 //  Script clásico (sin type="module"): admin.html usa onclick/onchange
 //  que llaman funciones globales como guardarPlatos() y marcar().
 //  La conexión `sb` viene de js/supabase.js, que se carga antes.
+//
+//  Privacidad: reservas y voluntarios NO guardan nombre ni correo.
+//  Se identifican con un código de 4 caracteres; voluntarios pueden
+//  dejar un apodo opcional. Donaciones no guardan quién las hizo.
 // =====================================================================
 
 const $ = (id) => document.getElementById(id);
 
-// Evita que un nombre escrito por alguien del público se ejecute como código
+// Evita que un texto escrito por alguien del público se ejecute como código
 const esc = (t) =>
   String(t ?? "").replace(
     /[&<>"']/g,
@@ -230,7 +234,7 @@ $("form-menu").addEventListener("submit", async (e) => {
       "err",
     );
   e.target.reset();
-  $("m-cierre-h").value = "18:00";
+  $("m-cierre-h").value = "15:00"; // El comedor necesita saber las reservas el lunes a las 3 p.m.
   mensaje("msg-menu", "Menú publicado.", "ok");
   cargarMartes();
 });
@@ -256,30 +260,31 @@ async function cargarReservas() {
   if (!id) {
     $("r-titulo").textContent = "";
     $("lista-reservas").innerHTML =
-      `<tr><td colspan="5" class="vacio">Publica un menú para ver sus reservas.</td></tr>`;
+      `<tr><td colspan="4" class="vacio">Publica un menú para ver sus reservas.</td></tr>`;
     return;
   }
   const m = menus.find((x) => String(x.id) === id);
+  // Ordenadas por código para encontrar rápido a cada persona en la lista impresa
   const { data, error } = await sb
     .from("reservas")
     .select("*")
     .eq("menu_id", id)
-    .order("nombre");
+    .order("codigo");
   if (error) {
     $("lista-reservas").innerHTML =
-      `<tr><td colspan="5" class="vacio">${esc(error.message)}</td></tr>`;
+      `<tr><td colspan="4" class="vacio">${esc(error.message)}</td></tr>`;
     return;
   }
   $("r-titulo").textContent =
-    `${fechaBonita(m.fecha)}: ${data.length} reservas`;
+    `${fechaBonita(m.fecha)}: ${data.length} ${data.length === 1 ? "reserva" : "reservas"}`;
   $("lista-reservas").innerHTML = data.length
     ? data
         .map(
           (r) => `
-    <tr><td>${esc(r.nombre)}</td><td>${esc(r.correo)}</td><td>${esc(r.carrera)}</td><td>${r.semestre}</td><td>${esc(horaCorta(r.created_at))}</td></tr>`,
+    <tr><td><strong>${esc(r.codigo)}</strong></td><td>${esc(r.carrera)}</td><td>${r.semestre ?? "—"}</td><td>${esc(horaCorta(r.created_at))}</td></tr>`,
         )
         .join("")
-    : `<tr><td colspan="5" class="vacio">Nadie ha reservado para este martes todavía.</td></tr>`;
+    : `<tr><td colspan="4" class="vacio">Nadie ha reservado para este martes todavía.</td></tr>`;
 }
 
 // ============ DONACIONES ============
@@ -296,7 +301,7 @@ async function cargarDonaciones() {
     .order("created_at", { ascending: false });
   if (error) {
     $("lista-donaciones").innerHTML =
-      `<tr><td colspan="6" class="vacio">${esc(error.message)}</td></tr>`;
+      `<tr><td colspan="5" class="vacio">${esc(error.message)}</td></tr>`;
     return;
   }
   $("lista-donaciones").innerHTML = data.length
@@ -308,12 +313,11 @@ async function cargarDonaciones() {
       <td>${esc(nombreTipo[d.tipo] || d.tipo)}</td>
       <td>${Number(d.cantidad)}</td>
       <td>${esc(d.descripcion || "")}</td>
-      <td>${esc(d.nombre || "Anónimo")}${d.correo ? "<br><small>" + esc(d.correo) + "</small>" : ""}</td>
       <td><input type="checkbox" ${d.recibida ? "checked" : ""} aria-label="Recibida" onchange="marcar('donaciones', ${d.id}, 'recibida', this, 'msg-don')"></td>
     </tr>`,
         )
         .join("")
-    : `<tr><td colspan="6" class="vacio">Aún no hay donaciones registradas.</td></tr>`;
+    : `<tr><td colspan="5" class="vacio">Aún no hay donaciones registradas.</td></tr>`;
 }
 
 async function marcar(tabla, id, campo, casilla, msgId) {
@@ -358,7 +362,9 @@ async function cargarTurnos() {
           ? `<div class="scroll"><table class="tabla" style="margin-top:6px"><tbody>
         ${t.voluntarios
           .map(
-            (v) => `<tr><td>${esc(v.nombre)}</td><td>${esc(v.correo)}</td>
+            (
+              v,
+            ) => `<tr><td><strong>${esc(v.codigo)}</strong></td><td>${esc(v.apodo || "Sin apodo")}</td>
           <td style="width:110px"><label style="display:flex;gap:6px;align-items:center;margin:0">
           <input type="checkbox" ${v.asistio ? "checked" : ""} onchange="marcar('voluntarios', ${v.id}, 'asistio', this, 'msg-turno')"> Asistió</label></td></tr>`,
           )
