@@ -13,7 +13,7 @@
   <script src="js/layout.js" defer></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body class="bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
+<body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
 
   <!-- ============ ENCABEZADO (igual en todas las páginas públicas) ============
        Para usarlo en otra página: copiar este <header> completo y mover
@@ -30,14 +30,20 @@
       <div>
         <h1 class="font-['Lilita_One'] text-5xl sm:text-6xl leading-[1.05]">Comida para todos, cada martes</h1>
         <p class="mt-5 max-w-xl">El Comedor Comunitario CUCEI es organizado por compañeros del Movimiento Estudiantil. Ayudanos reservando tu plato para que sepamos cuánto preparar y nadie se quede sin comer.</p>
-        <div class="mt-8 flex flex-wrap gap-4">
-          <a href="menu.html" class="rounded-full border-[3px] border-[#3D2D28] bg-[#43A592] px-7 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Ver el menú y reservar</a>
-          <a href="voluntariado.html" class="rounded-full border-[3px] border-[#3D2D28] bg-[#FFFCF5] px-7 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Quiero ayudar</a>
+        <div class="mt-8 flex gap-4 w-full items-center">
+          <a href="menu.html" class="w-full text-center rounded-3xl border-[3px] border-[#3D2D28] bg-[#43A592] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
+            Ver el menú y reservar
+          </a>
+          <a href="voluntariado.html" class="w-full text-center rounded-3xl border-[3px] border-[#3D2D28] bg-[#FFFCF5] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
+            Quiero ayudar
+          </a>
         </div>
+
+
       </div>
 
       <!-- Nota pegada con cinta: el dato que más se busca -->
-      <aside class="relative mx-auto w-full max-w-sm rotate-[-2deg]" aria-label="Horario">
+      <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Horario">
         <span aria-hidden="true" class="absolute -top-4 left-1/2 -translate-x-1/2 h-8 w-32 bg-[#EADDB8] rotate-[3deg]"></span>
         <div class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#F4DE80] p-8 shadow-[8px_8px_0_#3D2D28]">
           <p class="font-['Lilita_One'] text-4xl">Martes</p>
