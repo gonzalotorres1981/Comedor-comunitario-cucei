@@ -4,3 +4,44 @@
    Las páginas usan Tailwind por CDN; aquí va solo lo que Tailwind
    no cubra (fuentes, colores del comedor, ajustes puntuales).
    ===================================================================== */
+
+body { background-color: #C9A27A; }          /* color de respaldo mientras carga */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("../img/papel-fondo.webp") center / cover no-repeat;
+}
+
+/* Versión más ligera para celulares */
+@media (max-width: 768px) {
+  body::before { background-image: url("../img/papel-fondo.webp") center / cover no-repeat; }
+}
+
+/* La misma textura para el panel del menú móvil */
+.textura-papel {
+  background: #C9A27A url("../img/papel-fondo.webp") center / cover no-repeat;
+}
+
+.scroll-papel {
+  scrollbar-width: medium;                    /* barra delgada */
+  scrollbar-color: #3D2D28 transparent;     /* color del control y del carril */
+}
+
+/*Esto es para la barrita de scroll*/
+
+/* Respaldo para Safari/navegadores antiguos */
+@supports not (scrollbar-color: auto) {
+  .scroll-papel::-webkit-scrollbar { width: 10px; }
+  .scroll-papel::-webkit-scrollbar-track { background: transparent; }
+  .scroll-papel::-webkit-scrollbar-thumb {
+    background: #3D2D28;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;           
+  }
+}
+
+a { -webkit-tap-highlight-color: transparent; }

@@ -9,25 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <script src="js/layout.js" defer></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body class="bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
 
-  <header class="border-b-[3px] border-[#3D2D28] bg-[#FDF6E9]">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-      <a href="index.html" class="font-['Lilita_One'] text-2xl leading-none focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] rounded-lg">Comedor Comunitario CUCEI</a>
-      <nav aria-label="Principal">
-        <ul class="flex flex-wrap gap-2 text-base font-extrabold">
-          <li><a href="index.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Inicio</a></li>
-          <li><a href="menu.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Menú</a></li>
-          <li><a href="donaciones.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Donaciones</a></li>
-          <li><a href="voluntariado.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Voluntariado</a></li>
-          <li><a href="impacto.html" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Impacto</a></li>
-          <li><a href="privacidad.html" aria-current="page" class="block rounded-full border-2 border-[#3D2D28] px-4 py-1.5 hover:bg-[#F4DE80] aria-[current=page]:bg-[#3D2D28] aria-[current=page]:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">Privacidad</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <header id="encabezado"></header>
 
   <main class="max-w-3xl mx-auto px-4 py-12">
     <h1 class="font-['Lilita_One'] text-5xl leading-tight">Aviso de privacidad</h1>
@@ -96,21 +84,7 @@
     </div>
   </main>
 
-  <footer class="border-t-[3px] border-[#3D2D28] bg-[#3D2D28] text-[#FDF6E9]">
-    <div class="max-w-5xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-2 text-base">
-      <div>
-        <p class="font-['Lilita_One'] text-2xl">Comedor Comunitario CUCEI</p>
-        <p class="mt-2">Organizado por el Movimiento Estudiantil CUCEI.</p>
-        <p class="mt-1">Punto de acopio: Edificio "Y" (Chedraui).</p>
-      </div>
-      <div class="sm:text-right space-y-1">
-        <p><a href="mailto:cucei.comedorcomunitario@gmail.com" class="underline break-all">cucei.comedorcomunitario@gmail.com</a></p>
-        <p>Instagram: @movimientoestudiantil_cucei</p>
-        <p><a href="privacidad.html" class="underline">Aviso de privacidad</a></p>
-        <p class="pt-2 text-sm opacity-80">Proyecto de Ingeniería y Sustentabilidad, CUCEI, 2026B.</p>
-      </div>
-    </div>
-  </footer>
+  <footer id="pie"></footer>
 
 </body>
 </html>
