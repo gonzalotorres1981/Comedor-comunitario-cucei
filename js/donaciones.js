@@ -22,8 +22,8 @@ const PUNTO_ACOPIO = 'Edificio "Y" (Chedraui)';
 const TIPOS_DONACION = {
   agua: {
     nombre: "Agua",
-    unidad: "garrafones de 20 L",
-    etiqueta: "¿Cuántos garrafones de 20 L?",
+    unidad: "Garrafones de 20L",
+    etiqueta: "¿Cuántos garrafones de 20L?",
     paso: "1",
     minimo: 1,
     color: "#9DC4EC",
@@ -31,7 +31,7 @@ const TIPOS_DONACION = {
   },
   despensa: {
     nombre: "Despensa",
-    unidad: "artículos o paquetes",
+    unidad: "Artículos o paquetes",
     etiqueta: "¿Cuántos artículos o paquetes?",
     paso: "1",
     minimo: 1,
@@ -40,7 +40,7 @@ const TIPOS_DONACION = {
   },
   dinero: {
     nombre: "Dinero",
-    unidad: "pesos",
+    unidad: "Pesos MXN",
     etiqueta: "¿Cuántos pesos te comprometes a donar?",
     paso: "1",
     minimo: 1,
@@ -61,7 +61,7 @@ const escD = (t) =>
 
 // ---------- estilos compartidos (Tailwind) ----------
 const TARJETA_D =
-  "rounded-3xl border-[3px] border-[#3D2D28] shadow-[6px_6px_0_#3D2D28] p-6 sm:p-8";
+  "rounded-3xl border-[3px] border-[#3D2D28] shadow-[6px_6px_0_#3D2D28] p-6 sm:p-8 ";
 const TITULO_D = "font-['Lilita_One'] text-[#3D2D28] leading-tight";
 const CAMPO_D =
   "w-full rounded-xl border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-2 text-base focus:outline-none focus:ring-4 focus:ring-[#9DC4EC]";
@@ -86,7 +86,7 @@ function formularioDonacion() {
   const radios = Object.entries(TIPOS_DONACION)
     .map(
       ([clave, t], i) => `
-      <label class="flex cursor-pointer items-center gap-3 rounded-2xl border-[3px] border-[#3D2D28] px-4 py-3 font-bold has-[:checked]:shadow-[4px_4px_0_#3D2D28] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-[#9DC4EC]" style="background:${t.color}">
+      <label class="flex cursor-pointer items-center gap-3 rounded-2xl border-[3px] border-[#3D2D28] px-4 py-3 font-bold has-[:checked]:shadow-[4px_4px_0_#3D2D28] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-[#9DC4EC] transition hover:shadow-[4px_4px_0_#3D2D28]" style="background:${t.color}">
         <input type="radio" name="d-tipo" value="${clave}" class="h-5 w-5 accent-[#3D2D28]" ${i === 0 ? "" : ""} required>
         <span>${escD(t.nombre)}</span>
       </label>`,
@@ -119,7 +119,7 @@ function formularioDonacion() {
 
       <label class="flex gap-3 items-start text-[#3D2D28]">
         <input id="d-privacidad" type="checkbox" class="mt-1 h-5 w-5 accent-[#43A592]" required>
-        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="underline font-bold">aviso de privacidad</a> (se abre en otra pestaña).</span>
+        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="underline font-bold hover:text-menta">Aviso de privacidad</a> (se abre en otra pestaña).</span>
       </label>
 
       <button type="submit" class="${BOTON_D}">Registrar mi donación</button>

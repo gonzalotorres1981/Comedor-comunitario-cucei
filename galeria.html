@@ -15,15 +15,21 @@
 <body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28]">
   <header id="encabezado"></header>
 
-  <main>
-    <h1>Galería</h1>
-    <!-- Acá se van a incluir tooodas las invitaciones -->
-  </main>
+  <main class="flex-1 overflow-x-clip">
+  <section class="mx-auto max-w-5xl px-6 py-12 sm:py-16 lg:px-8">
+    <h1 class="font-titulo text-5xl leading-[1.05]">Galería</h1>
+    <p class="mt-4 max-w-prose text-lg">Aquí puedes encontrar todas las invitaciones que han sido creadas hasta la fecha. Toca alguna para verla en grande y desplázate con los botones o teclas.</p>
+    <ul id="galeria-invitaciones" role="list" class="mt-10 grid grid-cols-2 gap-5 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
+      <li class="col-span-full text-lg font-bold">Cargando invitaciones…</li>
+    </ul>
+  </section>
+</main>
 
   <footer id="pie"></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
+  <script src="js/invitaciones.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/impacto.js"></script>
 </body>

@@ -15,11 +15,9 @@
 </head>
 <body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
 
-  <!-- ============ ENCABEZADO (igual en todas las páginas públicas) ============
-       Para usarlo en otra página: copiar este <header> completo y mover
-       aria-current="page" al enlace de esa página. -->
+  <!-- ============ ENCABEZADO  ============-->
 
-  <!-- Nota: Ahora el encabezado (y el footer) se trabaja por un archivo 
+  <!-- Nota: El encabezado (y el footer) se trabajan por un archivo JS
         de layout genérico que se adapta según la página en la que estés-->
         
   <header id="encabezado"></header>
@@ -31,7 +29,7 @@
         <h1 class="font-['Lilita_One'] text-5xl sm:text-6xl leading-[1.05]">Comida para todos, cada martes</h1>
         <p class="mt-5 max-w-xl">El Comedor Comunitario CUCEI es organizado por compañeros del Movimiento Estudiantil. Ayudanos reservando tu plato para que sepamos cuánto preparar y nadie se quede sin comer.</p>
         <div class="mt-8 flex gap-4 w-full items-center">
-          <a href="menu.html" class="w-full text-center rounded-3xl border-[3px] border-[#3D2D28] bg-[#43A592] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
+          <a href="menu.html" class="w-full text-center text-papel rounded-3xl border-[3px] border-[#3D2D28] bg-[#43A592] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
             Ver el menú y reservar
           </a>
           <a href="voluntariado.html" class="w-full text-center rounded-3xl border-[3px] border-[#3D2D28] bg-[#FFFCF5] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
@@ -45,14 +43,24 @@
       <!-- Nota pegada con cinta: el dato que más se busca -->
       <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Horario">
         <span aria-hidden="true" class="absolute -top-4 left-1/2 -translate-x-1/2 h-8 w-32 bg-[#EADDB8] rotate-[3deg]"></span>
-        <div class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#F4DE80] p-8 shadow-[8px_8px_0_#3D2D28]">
+        <div class="rounded-3xl border-[3px] border-tinta bg-amarillo p-8 shadow-[8px_8px_0_#3D2D28]">
           <p class="font-['Lilita_One'] text-4xl">Martes</p>
           <p class="font-['Lilita_One'] text-3xl mt-1">1:00 a 6:00 p.m.</p>
-          <hr class="my-5 border-t-2 border-dashed border-[#3D2D28]">
+          <hr class="my-5 border-t-2 border-dashed border-tinta">
           <p class="font-bold">Reserva antes del lunes a las 3:00 p.m.</p>
           <p class="mt-2">Si no alcanzaste, llega sin reserva: atendemos mientras haya comida.</p>
         </div>
       </aside>
+    </section>
+
+    <hr class="border-t-[3px] border-tinta">
+
+    <!-- ============ ÚLTIMA INVITACIÓN ============ -->
+    <section class="mx-auto max-w-auto px-6 py-12 sm:py-16 lg:px-8">
+      <h2 class="text-center font-titulo text-5xl leading-[1.05]">☆ Última invitación</h2>
+      <div id="ultima-invitacion" class="mx-auto mt-10 max-w-xs sm:max-w-sm">
+        <p class="text-center text-lg font-bold">Cargando…</p>
+      </div>
     </section>
 
     <!-- ============ CÓMO FUNCIONA ============ -->
@@ -86,7 +94,7 @@
       <div class="mt-8 grid gap-6 md:grid-cols-2">
         <a href="donaciones.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#B9A5E6] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
           <h3 class="font-['Lilita_One'] text-3xl">Dona</h3>
-          <p class="mt-2">Ya sea en especie, con arroz, frijol, enlatados, aceite, platos/vasos reutilizables, o en efectivo. Cada pequeño esfuerzo cuenta</p>
+          <p class="mt-2">Ya sea en especie, con arroz, frijol, enlatados, aceite, platos/vasos reutilizables, o en efectivo. Cada pequeño esfuerzo cuenta.</p>
           <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">¿Qué necesitamos?</p>
         </a>
         <a href="voluntariado.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#F6BE96] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
@@ -98,8 +106,11 @@
     </section>
   </main>
 
-  <!-- ============ PIE DE PÁGINA (igual en todas las páginas públicas) ============ -->
+  <!-- ============ PIE DE PÁGINA ============ -->
   <footer id="pie"></footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/invitaciones.js"></script>
 </body>
 </html>
