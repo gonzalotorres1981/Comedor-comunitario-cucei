@@ -45,3 +45,57 @@ body::before {
 }
 
 a { -webkit-tap-highlight-color: transparent; }
+
+/* ---------- Tarjeta tipo nota (donaciones) ---------- */
+.nota {
+  position: relative;
+  border: 3px solid #3D2D28;
+  border-radius: 1.5rem;
+  box-shadow: 6px 6px 0 #3D2D28;
+  padding: 1.5rem;
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+  backface-visibility: hidden;
+}
+/* El hover solo en dispositivos con ratón; en celular se ve al presionar */
+@media (hover: hover) {
+  .nota:hover { transform: translateY(-4px) rotate(-2deg); z-index: 10; }
+}
+.nota:active { transform: rotate(-2deg); }
+@media (prefers-reduced-motion: reduce) {
+  .nota { transition: none; }
+  .nota:hover, .nota:active { transform: none; }
+}
+
+/* Cinta: es el mismo trozo de index.html, hecho clase */
+.cinta {
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  width: 8rem;
+  height: 2rem;
+  background: #EADDB8;
+  transform: translateX(-50%) rotate(var(--r, 3deg));
+}
+
+/* ---------- Listas de las tarjetas, con carácter propio ---------- */
+.lista-nota {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.125rem;
+}
+.lista-nota li {
+  position: relative;
+  padding-left: 1.5rem;          /* las líneas largas quedan alineadas con el texto */
+}
+.lista-nota li::before {
+  content: "☆";
+  content: "☆" / "";             /* los lectores de pantalla no lo leen */
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-size: 0.8em;
+}
+/* En tabletas las columnas son angostas: letra un poco menor */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .lista-nota { font-size: 1rem; }
+}

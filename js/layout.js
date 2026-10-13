@@ -1,6 +1,6 @@
 // js/layout.js — Header y footer compartidos por todas las páginas públicas
 const PAGINAS = [
-  { href: "index.html",        texto: "Inicio",       color: "#FFC93C" },
+  { href: "index.html",        texto: "Inicio",       color: "#F4DE80" },
   { href: "menu.html",         texto: "Menú",         color: "#F2A7C9" },
   { href: "donaciones.html",   texto: "Donaciones",   color: "#9DC4EC" },
   { href: "voluntariado.html", texto: "Voluntariado", color: "#8CC9AF" },
