@@ -26,7 +26,7 @@ const TIPOS_DONACION = {
     etiqueta: "¿Cuántos garrafones de 20L?",
     paso: "1",
     minimo: 1,
-    color: "#9DC4EC",
+    color: "#9DB7F2",
     nota: `Entrega los garrafones en el punto de acopio: ${PUNTO_ACOPIO}.`,
   },
   despensa: {
@@ -35,7 +35,7 @@ const TIPOS_DONACION = {
     etiqueta: "¿Cuántos artículos o paquetes?",
     paso: "1",
     minimo: 1,
-    color: "#8CC9AF",
+    color: "#FFE4E4",
     nota: `Entrega tu despensa en el punto de acopio: ${PUNTO_ACOPIO}.`,
   },
   dinero: {
@@ -44,7 +44,7 @@ const TIPOS_DONACION = {
     etiqueta: "¿Cuántos pesos te comprometes a donar?",
     paso: "1",
     minimo: 1,
-    color: "#F4DE80",
+    color: "#F7C744",
     nota: `Esta página no cobra nada: solo registra tu compromiso. Escríbele al comedor a ${CORREO_COMEDOR_D} o por Instagram (${INSTAGRAM_D}) para acordar la entrega.`,
   },
 };
@@ -60,13 +60,11 @@ const escD = (t) =>
   );
 
 // ---------- estilos compartidos (Tailwind) ----------
-const TARJETA_D =
-  "rounded-3xl border-[3px] border-[#3D2D28] shadow-[6px_6px_0_#3D2D28] p-6 sm:p-8 ";
-const TITULO_D = "font-['Lilita_One'] text-[#3D2D28] leading-tight";
-const CAMPO_D =
-  "w-full rounded-xl border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-2 text-base focus:outline-none focus:ring-4 focus:ring-[#9DC4EC]";
-const BOTON_D =
-  "rounded-full border-[3px] border-[#3D2D28] bg-[#43A592] px-6 py-3 font-extrabold text-white shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#9DC4EC] disabled:opacity-60";
+// Las clases tarjeta, campo y btn viven en css/estilos.css
+const TARJETA_D = "tarjeta p-6 sm:p-8";
+const TITULO_D = "font-titulo text-h2 leading-tight";   // h2: Permanent Marker
+const CAMPO_D = "campo";
+const BOTON_D = "btn btn-lg w-full sm:w-auto";
 
 // ---------- contenedor ----------
 function obtenerCaja() {
@@ -86,55 +84,56 @@ function formularioDonacion() {
   const radios = Object.entries(TIPOS_DONACION)
     .map(
       ([clave, t], i) => `
-      <label class="flex cursor-pointer items-center gap-3 rounded-2xl border-[3px] border-[#3D2D28] px-4 py-3 font-bold has-[:checked]:shadow-[4px_4px_0_#3D2D28] has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-[#9DC4EC] transition hover:shadow-[4px_4px_0_#3D2D28]" style="background:${t.color}">
-        <input type="radio" name="d-tipo" value="${clave}" class="h-5 w-5 accent-[#3D2D28]" ${i === 0 ? "" : ""} required>
+      <label class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-borde px-4 py-3 font-extrabold text-noche transition has-[:checked]:shadow-dura has-[:checked]:-rotate-1 has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--c-foco)] hover:shadow-dura-press motion-reduce:transition-none" style="background:${t.color}">
+        <input type="radio" name="d-tipo" value="${clave}" class="h-5 w-5 shrink-0 accent-[#B8231C]" ${i === 0 ? "" : ""} required>
         <span>${escD(t.nombre)}</span>
       </label>`,
     )
     .join("");
 
   return `
-    <form id="form-donacion" class="${TARJETA_D} bg-[#FDF6E9] space-y-5" novalidate>
+    <form id="form-donacion" class="${TARJETA_D} space-y-5" novalidate>
       <div>
-        <h2 class="${TITULO_D} text-3xl">Haz una donación</h2>
-        <p class="text-[#3D2D28] mt-1">No pedimos tu nombre ni tu correo. El comedor marca tu donación como recibida cuando la entregas.</p>
+        <h2 class="${TITULO_D} text-secundario">Haz una donación</h2>
+        <p class="mt-1">No pedimos tu nombre ni tu correo. El comedor marca tu donación como recibida cuando la entregas.</p>
       </div>
 
       <fieldset>
-        <legend class="block font-bold text-[#3D2D28] mb-2">¿Qué quieres donar?</legend>
+        <legend class="block font-bold mb-2">¿Qué quieres donar?</legend>
         <div class="grid gap-3 sm:grid-cols-3">${radios}</div>
       </fieldset>
 
       <div>
-        <label id="d-etiqueta" for="d-cantidad" class="block font-bold text-[#3D2D28] mb-1">Cantidad</label>
+        <label id="d-etiqueta" for="d-cantidad" class="block font-bold mb-1">Cantidad</label>
         <input id="d-cantidad" type="number" inputmode="numeric" min="1" step="1" class="${CAMPO_D}" placeholder="Elige primero qué quieres donar" disabled required>
       </div>
 
-      <p id="d-nota" class="rounded-2xl border-2 border-dashed border-[#3D2D28] bg-[#FFFCF5] p-4 text-[#3D2D28]" hidden></p>
+      <p id="d-nota" class="rounded-xl border-2 border-dashed border-borde bg-superficie-alt p-4" hidden></p>
 
       <div>
-        <label for="d-descripcion" class="block font-bold text-[#3D2D28] mb-1">Detalle (opcional)</label>
+        <label for="d-descripcion" class="block font-bold mb-1">Detalle (opcional)</label>
         <textarea id="d-descripcion" rows="3" maxlength="300" class="${CAMPO_D}" placeholder="Ej. arroz, frijol y aceite; o cuándo puedes entregarlo"></textarea>
       </div>
 
-      <label class="flex gap-3 items-start text-[#3D2D28]">
-        <input id="d-privacidad" type="checkbox" class="mt-1 h-5 w-5 accent-[#43A592]" required>
-        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="underline font-bold hover:text-menta">Aviso de privacidad</a> (se abre en otra pestaña).</span>
+      <label class="flex gap-3 items-start">
+        <input id="d-privacidad" type="checkbox" class="casilla mt-1" required>
+        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="enlace">aviso de privacidad</a> (se abre en otra pestaña).</span>
       </label>
 
       <button type="submit" class="${BOTON_D}">Registrar mi donación</button>
-      <p id="d-msg" class="font-bold text-[#B3261E]" role="alert"></p>
+      <p id="d-msg" class="msg-error" role="alert"></p>
     </form>`;
 }
 
 function graciasDonacion(tipo, cantidad) {
   const t = TIPOS_DONACION[tipo];
   return `
-    <section class="${TARJETA_D} text-center" style="background:#8CC9AF" aria-live="polite">
-      <h2 class="${TITULO_D} text-3xl">¡Gracias por tu donación!</h2>
-      <p class="my-4 inline-block rounded-2xl border-[3px] border-dashed border-[#3D2D28] bg-[#FFFCF5] px-6 py-3 font-['Lilita_One'] text-3xl text-[#3D2D28]">${escD(cantidad)} ${escD(t.unidad)}</p>
-      <p class="text-[#3D2D28] text-lg max-w-md mx-auto">${escD(t.nota)}</p>
-      <button type="button" id="d-otra" class="${BOTON_D} mt-6">Registrar otra donación</button>
+    <section class="${TARJETA_D} text-center" aria-live="polite">
+      <p class="inline-flex items-center gap-2 rounded-full border-2 border-exito px-3 py-1 text-sm font-extrabold text-exito"><span aria-hidden="true">✓</span> Donación registrada</p>
+      <h2 class="${TITULO_D} mt-3">¡Gracias por tu donación!</h2>
+      <p class="my-4 inline-block rounded-xl border-2 border-dashed border-borde bg-st-amarillo px-6 py-3 text-3xl font-extrabold text-noche">${escD(cantidad)} ${escD(t.unidad)}</p>
+      <p class="max-w-md mx-auto">${escD(t.nota)}</p>
+      <button type="button" id="d-otra" class="btn btn-sec mt-6">Registrar otra donación</button>
     </section>`;
 }
 

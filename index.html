@@ -7,81 +7,84 @@
   <title>Comedor Comunitario CUCEI</title>
   <meta name="description" content="Cada martes, comida para la comunidad del CUCEI. Reserva tu plato, dona o súmate como voluntario.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Nunito:wght@400;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/tailwind-config.js"></script>
   <script src="js/layout.js" defer></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28] text-lg">
+<body class="flex flex-col min-h-screen bg-fondo font-cuerpo text-cuerpo text-tinta">
 
   <!-- ============ ENCABEZADO  ============-->
 
   <!-- Nota: El encabezado (y el footer) se trabajan por un archivo JS
         de layout genérico que se adapta según la página en la que estés-->
-        
+
   <header id="encabezado"></header>
 
-  <main>
+  <main class="overflow-x-clip">
     <!-- ============ PORTADA ============ -->
-    <section class="max-w-5xl mx-auto px-4 pt-12 pb-16 grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
-      <div>
-        <h1 class="font-['Lilita_One'] text-5xl sm:text-6xl leading-[1.05]">Comida para todos, cada martes</h1>
-        <p class="mt-5 max-w-xl">El Comedor Comunitario CUCEI es organizado por compañeros del Movimiento Estudiantil. Ayudanos reservando tu plato para que sepamos cuánto preparar y nadie se quede sin comer.</p>
-        <div class="mt-8 flex gap-4 w-full items-center">
-          <a href="menu.html" class="w-full text-center text-papel rounded-3xl border-[3px] border-[#3D2D28] bg-[#43A592] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
-            Ver el menú y reservar
-          </a>
-          <a href="voluntariado.html" class="w-full text-center rounded-3xl border-[3px] border-[#3D2D28] bg-[#FFFCF5] px-3 py-3 font-extrabold shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC] text-base sm:text-lg md:text-xl lg:text-xl sm:px-7">
-            Quiero ayudar
-          </a>
+    <section class="relative">
+      <span class="trama right-0 top-0" aria-hidden="true"></span>
+      <div class="relative max-w-5xl mx-auto px-4 pt-10 pb-16 sm:pt-14 grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
+        <div>
+          <h1 class="font-titulo text-h1 text-balance">Comida para todos, cada martes</h1>
+          <p class="mt-5 max-w-xl">El Comedor Comunitario CUCEI lo organizan compañeros del Movimiento Estudiantil. Ayúdanos reservando tu plato para que sepamos cuánto preparar y nadie se quede sin comer.</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="menu.html" class="btn btn-lg">Ver el menú y reservar</a>
+            <a href="voluntariado.html" class="btn btn-sec btn-lg">Quiero ayudar</a>
+          </div>
         </div>
 
-
+        <!-- Nota pegada con cinta: el dato que más se busca -->
+        <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Horario">
+          <span aria-hidden="true" class="cinta"></span>
+          <div class="nota bg-st-amarillo p-8">
+            <span class="firma-a absolute -right-4 -top-5 bg-fondo text-3xl" aria-hidden="true">A</span>
+            <p class="font-titulo text-5xl leading-none">Martes</p>
+            <p class="mt-2 text-3xl font-extrabold">1:00 a 6:00 p.m.</p>
+            <hr class="my-5 border-t-2 border-dashed border-noche">
+            <p class="font-extrabold">Reserva antes del lunes a las 3:00 p.m.</p>
+            <p class="mt-2">Si no alcanzaste, llega sin reserva: atendemos mientras haya comida.</p>
+            <p class="mt-4 text-sm font-bold">Lleva tu plato y vaso, porfis.</p>
+          </div>
+          <span class="sello absolute -bottom-5 -left-3" style="--r:4deg">Aportación voluntaria</span>
+        </aside>
       </div>
-
-      <!-- Nota pegada con cinta: el dato que más se busca -->
-      <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Horario">
-        <span aria-hidden="true" class="absolute -top-4 left-1/2 -translate-x-1/2 h-8 w-32 bg-[#EADDB8] rotate-[3deg]"></span>
-        <div class="rounded-3xl border-[3px] border-tinta bg-amarillo p-8 shadow-[8px_8px_0_#3D2D28]">
-          <p class="font-['Lilita_One'] text-4xl">Martes</p>
-          <p class="font-['Lilita_One'] text-3xl mt-1">1:00 a 6:00 p.m.</p>
-          <hr class="my-5 border-t-2 border-dashed border-tinta">
-          <p class="font-bold">Reserva antes del lunes a las 3:00 p.m.</p>
-          <p class="mt-2">Si no alcanzaste, llega sin reserva: atendemos mientras haya comida.</p>
-        </div>
-      </aside>
     </section>
 
-    <hr class="border-t-[3px] border-tinta">
+    <div class="cenefa" aria-hidden="true"></div>
 
     <!-- ============ ÚLTIMA INVITACIÓN ============ -->
-    <section class="mx-auto max-w-auto px-6 py-12 sm:py-16 lg:px-8">
-      <h2 class="text-center font-titulo text-5xl leading-[1.05]">☆ Última invitación</h2>
-      <div id="ultima-invitacion" class="mx-auto mt-10 max-w-xs sm:max-w-sm">
-        <p class="text-center text-lg font-bold">Cargando…</p>
+    <section class="relative bg-superficie-alt">
+      <span class="trama bottom-0 left-0" style="--x:0%;--y:100%" aria-hidden="true"></span>
+      <div class="relative mx-auto max-w-5xl px-6 py-12 sm:py-16 lg:px-8">
+        <h2 class="text-center font-titulo text-h2 sm:text-5xl text-secundario"><span class="text-firma" aria-hidden="true">★</span> Última invitación</h2>
+        <div id="ultima-invitacion" class="mx-auto mt-10 max-w-xs sm:max-w-sm">
+          <p class="text-center text-lg font-bold">Cargando…</p>
+        </div>
       </div>
     </section>
 
     <!-- ============ CÓMO FUNCIONA ============ -->
-    <section class="border-y-[3px] border-[#3D2D28]">
+    <section class="border-y-2 border-borde">
       <div class="max-w-5xl mx-auto px-4 py-14">
-        <h2 class="font-['Lilita_One'] text-4xl mb-8">¿Cómo funciona?</h2>
+        <h2 class="font-titulo text-h2 sm:text-4xl mb-8 text-secundario">¿Cómo funciona?</h2>
         <ol class="grid gap-6 md:grid-cols-3">
-          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#F2A7C9] p-6 shadow-[6px_6px_0_#3D2D28]">
-            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#F2A7C9] font-['Lilita_One'] text-2xl">1</span>
-            <h3 class="font-['Lilita_One'] text-2xl mt-4">Reserva</h3>
-            <p class="mt-2">Elige tu carrera y semestre en la página del menú. No te preocupes, no pedimos tu nombre ni tu correo.</p>
+          <li class="tarjeta p-6">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-2 border-borde bg-st-bugambilia text-noche text-2xl font-extrabold" aria-hidden="true">1</span>
+            <h3 class="text-h3 font-extrabold mt-4">Reserva</h3>
+            <p class="mt-2">Elige tu carrera y semestre en la página del menú. No te preocupes: no pedimos tu nombre ni tu correo.</p>
           </li>
-          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#9DC4EC] p-6 shadow-[6px_6px_0_#3D2D28]">
-            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#9DC4EC] font-['Lilita_One'] text-2xl">2</span>
-            <h3 class="font-['Lilita_One'] text-2xl mt-4">Guarda tu código</h3>
-            <p class="mt-2">Se genera en el registro, consta de cuatro letras y números. Toma captura.</p>
+          <li class="tarjeta p-6">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-2 border-borde bg-st-azul text-noche text-2xl font-extrabold" aria-hidden="true">2</span>
+            <h3 class="text-h3 font-extrabold mt-4">Guarda tu código</h3>
+            <p class="mt-2">Se genera al reservar y tiene cuatro letras y números. Tómale captura.</p>
           </li>
-          <li class="rounded-3xl border-[3px] border-[#3D2D28] bg-[#8CC9AF] p-6 shadow-[6px_6px_0_#3D2D28]">
-            <span class="grid place-items-center h-12 w-12 rounded-full border-[3px] border-[#3D2D28] bg-[#8CC9AF] font-['Lilita_One'] text-2xl">3</span>
-            <h3 class="font-['Lilita_One'] text-2xl mt-4">Buen provecho!!</h3>
-            <p class="mt-2">Recoje tu plato el martes, muestra tu código y credencial UdeG.</p>
+          <li class="tarjeta p-6">
+            <span class="grid place-items-center h-12 w-12 rounded-full border-2 border-borde bg-st-amarillo text-noche text-2xl font-extrabold" aria-hidden="true">3</span>
+            <h3 class="text-h3 font-extrabold mt-4">¡Buen provecho!</h3>
+            <p class="mt-2">Recoge tu plato el martes: muestra tu código y tu credencial UdeG.</p>
           </li>
         </ol>
       </div>
@@ -89,18 +92,19 @@
 
     <!-- ============ AYUDAR ============ -->
     <section class="max-w-5xl mx-auto px-4 py-14">
-      <h2 class="font-['Lilita_One'] text-4xl">Un comedor por y para la comunidad</h2>
-      <p class="mt-3 max-w-2xl">Todo lo que se sirve es gracias a donativos y al tiempo de los voluntarios. Súmate! </p>
-      <div class="mt-8 grid gap-6 md:grid-cols-2">
-        <a href="donaciones.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#B9A5E6] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
-          <h3 class="font-['Lilita_One'] text-3xl">Dona</h3>
-          <p class="mt-2">Ya sea en especie, con arroz, frijol, enlatados, aceite, platos/vasos reutilizables, o en efectivo. Cada pequeño esfuerzo cuenta.</p>
-          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">¿Qué necesitamos?</p>
+      <h2 class="font-titulo text-h2 sm:text-4xl text-secundario">Un comedor por y para la comunidad</h2>
+      <p class="mt-3 max-w-2xl">Todo lo que se sirve es gracias a donativos y al tiempo de los voluntarios. ¡Súmate!</p>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <a href="donaciones.html" class="nota block bg-st-rosa p-7">
+          <h3 class="text-h3 font-extrabold">Dona</h3>
+          <p class="mt-2">En especie (arroz, frijol, enlatados, aceite, platos y vasos reutilizables) o en efectivo. Cada pequeño esfuerzo cuenta.</p>
+          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">¿Qué necesitamos? <span aria-hidden="true">→</span></p>
         </a>
-        <a href="voluntariado.html" class="group block rounded-3xl border-[3px] border-[#3D2D28] bg-[#F6BE96] p-7 shadow-[6px_6px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#9DC4EC]">
-          <h3 class="font-['Lilita_One'] text-3xl">Sé voluntario</h3>
+        <a href="voluntariado.html" class="nota block bg-st-azul p-7">
+          <span aria-hidden="true" class="cinta" style="--r:-2deg"></span>
+          <h3 class="text-h3 font-extrabold">Sé voluntario</h3>
           <p class="mt-2">Siempre necesitamos manos. Puedes cocinar un platillo en casa para compartir, ayudar a servir o a lavar platos en el comedor.</p>
-          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">Informate de los turnos</p>
+          <p class="mt-4 font-extrabold underline decoration-2 underline-offset-4">Infórmate de los turnos <span aria-hidden="true">→</span></p>
         </a>
       </div>
     </section>

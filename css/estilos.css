@@ -1,100 +1,324 @@
 /* =====================================================================
    css/estilos.css — Estilos propios de las páginas públicas
    Responsable: Persona 2: Sebas (diseño)
-   Las páginas usan Tailwind por CDN; aquí va solo lo que Tailwind
-   no cubra (fuentes, colores del comedor, ajustes puntuales).
+   Las páginas usan Tailwind por CDN; aquí van los colores del sistema
+   visual (variables), los componentes que se repiten y los adornos.
+   Guía completa: sistema visual del Comedor (carteles del Movimiento).
    ===================================================================== */
 
-body { background-color: #C9A27A; }          /* color de respaldo mientras carga */
+/* ---------- Variables del sistema visual ---------- */
+:root {
+  color-scheme: light;
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("../img/papel-fondo.webp") center / cover no-repeat;
+  /* Paleta */
+  --c-primario: #B8231C;        /* Rojo Comedor: CTA, enlaces */
+  --c-primario-hover: #961B15;
+  --c-rojo-firma: #E8242B;      /* SOLO decorativo (Ⓐ, estrellas) */
+  --c-secundario: #1E3A6E;      /* Azul Talavera */
+  --c-acento: #F7C744;          /* Amarillo Cempasúchil: solo como fondo */
+  --c-terciario: #9C2A63;       /* Rosa Bugambilia */
+  --c-fondo: #FFF4E8;           /* Papel Crema */
+  --c-superficie: #FFFFFF;
+  --c-superficie-alt: #FFE4E4;  /* Rosa Papel */
+  --c-texto: #2B1D22;           /* Tinta Vino */
+  --c-texto-2: #6B5A5E;
+  --c-borde: #2B1D22;
+  --c-sobre-oscuro: #FFFFFF;    /* Texto sobre el botón primario */
+  --c-exito: #2F6B3F;
+  --c-alerta: #8A5A00;
+  --c-error: #8E1630;
+  --c-foco: #1E3A6E;            /* Contorno de foco del teclado */
+  --c-trama: rgb(232 36 43 / 0.32);
+
+  /* Tipografía */
+  --f-titulo: "Permanent Marker", "Comic Sans MS", cursive;
+  --f-cuerpo: "Nunito", system-ui, sans-serif;
+  --f-cita: "Caveat", cursive;
+
+  /* Forma */
+  --radio: 12px;
+  --radio-pill: 999px;
+  --borde: 2px solid var(--c-borde);
+  --sombra-dura: 4px 4px 0 var(--c-borde);
+  --sombra-dura-press: 2px 2px 0 var(--c-borde);
 }
 
-/* Versión más ligera para celulares */
-@media (max-width: 768px) {
-  body::before { background-image: url("../img/papel-fondo.webp") center / cover no-repeat; }
-}
-
-/* La misma textura para el panel del menú móvil */
-.textura-papel {
-  background: #C9A27A url("../img/papel-fondo.webp") center / cover no-repeat;
-}
-
-.scroll-papel {
-  scrollbar-width: medium;                    /* barra delgada */
-  scrollbar-color: #3D2D28 transparent;     /* color del control y del carril */
-}
-
-/*Esto es para la barrita de scroll*/
-
-/* Respaldo para Safari/navegadores antiguos */
-@supports not (scrollbar-color: auto) {
-  .scroll-papel::-webkit-scrollbar { width: 10px; }
-  .scroll-papel::-webkit-scrollbar-track { background: transparent; }
-  .scroll-papel::-webkit-scrollbar-thumb {
-    background: #3D2D28;
-    border-radius: 999px;
-    border: 2px solid transparent;
-    background-clip: padding-box;           
+/* Modo oscuro, inspirado en el cartel del 1 sep */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --c-primario: #FF7A6B;      /* lleva texto oscuro encima */
+    --c-primario-hover: #FF968A;
+    --c-rojo-firma: #FF5A4E;
+    --c-secundario: #9DB7F2;
+    --c-terciario: #F08BC0;
+    --c-fondo: #1B1517;
+    --c-superficie: #2A2124;
+    --c-superficie-alt: #33282C;
+    --c-texto: #F6EBDD;
+    --c-texto-2: #C9B8B0;
+    --c-borde: #F6EBDD;
+    --c-sobre-oscuro: #1B1517;
+    --c-exito: #7ED39A;
+    --c-alerta: #F7C744;
+    --c-error: #FF8FA0;
+    --c-foco: #F7C744;
+    --c-trama: rgb(255 122 107 / 0.28);
   }
 }
 
+/* Zonas siempre oscuras (encabezado, pie): el foco se ve en amarillo */
+.zona-oscura { --c-foco: #F7C744; }
+
+/* ---------- Base ---------- */
+body { background-color: var(--c-fondo); color: var(--c-texto); }
+
 a { -webkit-tap-highlight-color: transparent; }
 
-/* ---------- Tarjeta tipo nota (donaciones) ---------- */
+:focus-visible {
+  outline: 3px solid var(--c-foco);
+  outline-offset: 3px;
+}
+
+::selection { background: #F7C744; color: #2B1D22; }
+
+.scroll-papel {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-borde) transparent;
+}
+
+/* ---------- Botones ---------- */
+/* :is(a, button) sube la especificidad para ganarle al reset de Tailwind */
+.btn:is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--c-primario);
+  color: var(--c-sobre-oscuro);
+  font: 800 1rem/1.25 var(--f-cuerpo);
+  text-align: center;
+  text-decoration: none;
+  border: var(--borde);
+  border-radius: var(--radio-pill);
+  box-shadow: var(--sombra-dura);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+}
+/* Secundario: contorno azul */
+.btn-sec:is(a, button) {
+  background: var(--c-superficie);
+  color: var(--c-secundario);
+  border-color: var(--c-secundario);
+}
+@media (hover: hover) {
+  .btn:is(a, button):hover {
+    background: var(--c-primario-hover);
+    box-shadow: var(--sombra-dura-press);
+    transform: translate(2px, 2px);
+  }
+  .btn-sec:is(a, button):hover { background: var(--c-superficie-alt); }
+}
+.btn:is(a, button):active {
+  box-shadow: 0 0 0 var(--c-borde);
+  transform: translate(4px, 4px);
+}
+.btn:is(a, button):disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--sombra-dura);
+}
+.btn-lg:is(a, button) { font-size: 1.125rem; padding: 0.875rem 1.75rem; }
+
+/* ---------- Tarjetas, campos y etiquetas ---------- */
+.tarjeta {
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-dura);
+}
+
+/* Franja azul con la fecha, arriba de una tarjeta */
+.franja {
+  background: #1E3A6E;
+  color: #FFF4E8;
+  font-weight: 800;
+  border-bottom: var(--borde);
+  border-radius: calc(var(--radio) - 2px) calc(var(--radio) - 2px) 0 0;
+}
+
+.campo {
+  display: block;
+  width: 100%;
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  border: var(--borde);
+  border-radius: var(--radio);
+  padding: 0.625rem 0.875rem;
+  font-size: 1rem;              /* 16px: evita el zoom automático en iPhone */
+}
+.campo::placeholder { color: var(--c-texto-2); opacity: 1; }
+.campo:focus { outline: 3px solid var(--c-foco); outline-offset: 2px; }
+.campo:disabled { background: var(--c-superficie-alt); opacity: 0.75; cursor: not-allowed; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  border: var(--borde);
+  border-radius: var(--radio-pill);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+/* Casillas y radios con el color del sistema */
+.casilla { width: 1.25rem; height: 1.25rem; accent-color: var(--c-primario); flex-shrink: 0; }
+
+/* Mensajes: el color nunca va solo, siempre con ícono y texto */
+.msg-error { color: var(--c-error); font-weight: 800; }
+.msg-error:not(:empty)::before { content: "⚠ " / ""; }
+
+/* Enlaces dentro de texto */
+.enlace {
+  color: var(--c-primario);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+@media (hover: hover) { .enlace:hover { text-decoration-color: var(--c-rojo-firma); text-decoration-thickness: 3px; } }
+
+/* ---------- Sello "Aportación voluntaria" ---------- */
+.sello {
+  display: inline-block;
+  background: #F7C744;
+  color: #2B1D22;
+  font: 800 0.8125rem/1.1 var(--f-cuerpo);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.45rem 0.8rem;
+  border: 2px solid #7F201F;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 #7F201F;
+  transform: rotate(var(--r, -3deg));
+}
+
+/* ---------- Ⓐ roja: firma decorativa (siempre con aria-hidden) ---------- */
+.firma-a {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 0.12em solid var(--c-rojo-firma);
+  border-radius: 50%;
+  color: var(--c-rojo-firma);
+  font-family: var(--f-titulo);
+  line-height: 1;
+  transform: rotate(var(--r, -10deg));
+  user-select: none;
+}
+
+/* ---------- Citas ---------- */
+.cita { font-family: var(--f-cita); font-weight: 600; font-size: 1.5rem; line-height: 1.2; }
+
+/* ---------- Adornos (siempre aria-hidden y nunca detrás de texto largo) ---------- */
+
+/* Papel picado: borde inferior del encabezado */
+.papel-picado {
+  height: 30px;
+  pointer-events: none;
+  /* Con fondo: en celular el encabezado es fijo y así tapa el texto que pasa debajo */
+  background: var(--c-fondo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30' viewBox='0 0 160 30'%3E%3Cdefs%3E%3Cpath id='b' fill-rule='evenodd' d='M4 4h32v17l-4 5-4-5-4 5-4-5-4 5-4-5-4 5-4-5zM20 7.5l4 5-4 5-4-5zM9 9h3v3H9zM28 9h3v3h-3z'/%3E%3C/defs%3E%3Cpath d='M0 4h160' stroke='%231E3A6E' stroke-width='2'/%3E%3Cuse href='%23b' fill='%23E8242B'/%3E%3Cuse href='%23b' x='40' fill='%23F7C744'/%3E%3Cuse href='%23b' x='80' fill='%23F08BC0'/%3E%3Cuse href='%23b' x='120' fill='%237AAD82'/%3E%3C/svg%3E") repeat-x left top / 160px 30px;
+}
+/* Temporada de Día de Muertos: cempasúchil, naranja, bugambilia y morado */
+.temporada-muertos .papel-picado {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30' viewBox='0 0 160 30'%3E%3Cdefs%3E%3Cpath id='b' fill-rule='evenodd' d='M4 4h32v17l-4 5-4-5-4 5-4-5-4 5-4-5-4 5-4-5zM20 7.5l4 5-4 5-4-5zM9 9h3v3H9zM28 9h3v3h-3z'/%3E%3C/defs%3E%3Cpath d='M0 4h160' stroke='%231E3A6E' stroke-width='2'/%3E%3Cuse href='%23b' fill='%23F7C744'/%3E%3Cuse href='%23b' x='40' fill='%23F28C28'/%3E%3Cuse href='%23b' x='80' fill='%239C2A63'/%3E%3Cuse href='%23b' x='120' fill='%236B3FA0'/%3E%3C/svg%3E");
+}
+
+/* Cenefa de talavera: divisor de secciones */
+.cenefa {
+  height: 28px;
+  border-block: var(--borde);
+  background: #FFF4E8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='24' viewBox='0 0 28 24'%3E%3Cpath d='M14 3.5l8.5 8.5-8.5 8.5L5.5 12z' fill='%231E3A6E'/%3E%3Ccircle cx='14' cy='12' r='2.6' fill='%23F7C744'/%3E%3Cpath d='M0 0h3v3H0zM25 0h3v3h-3zM0 21h3v3H0zM25 21h3v3h-3zM0 10.5h1.5v3H0zM26.5 10.5H28v3h-1.5z' fill='%231E3A6E'/%3E%3C/svg%3E") repeat-x center / 28px 24px;
+}
+
+/* Azulejos de talavera azul: fondo del pie de página (el texto va en un panel sólido encima) */
+.azulejos {
+  background: #FBF6EC url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FBF6EC'/%3E%3Cpath d='M0 .5h64M.5 0v64' stroke='%23C9D3E6' stroke-width='1'/%3E%3Cg fill='%231E3A6E'%3E%3Cellipse cx='32' cy='19' rx='5' ry='10'/%3E%3Cellipse cx='32' cy='19' rx='5' ry='10' transform='rotate(90 32 32)'/%3E%3Cellipse cx='32' cy='19' rx='5' ry='10' transform='rotate(180 32 32)'/%3E%3Cellipse cx='32' cy='19' rx='5' ry='10' transform='rotate(270 32 32)'/%3E%3C/g%3E%3Cg fill='%234A6FB5'%3E%3Cellipse cx='32' cy='22' rx='3.2' ry='7' transform='rotate(45 32 32)'/%3E%3Cellipse cx='32' cy='22' rx='3.2' ry='7' transform='rotate(135 32 32)'/%3E%3Cellipse cx='32' cy='22' rx='3.2' ry='7' transform='rotate(225 32 32)'/%3E%3Cellipse cx='32' cy='22' rx='3.2' ry='7' transform='rotate(315 32 32)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='5' fill='%231E3A6E'/%3E%3Ccircle cx='32' cy='32' r='2.2' fill='%23FBF6EC'/%3E%3Cg fill='%231E3A6E'%3E%3Ccircle r='12'/%3E%3Ccircle cx='64' r='12'/%3E%3Ccircle cy='64' r='12'/%3E%3Ccircle cx='64' cy='64' r='12'/%3E%3Ccircle cx='32' r='2.5'/%3E%3Ccircle cy='32' r='2.5'/%3E%3Ccircle cx='64' cy='32' r='2.5'/%3E%3Ccircle cx='32' cy='64' r='2.5'/%3E%3C/g%3E%3Cg fill='%23FBF6EC'%3E%3Ccircle r='7'/%3E%3Ccircle cx='64' r='7'/%3E%3Ccircle cy='64' r='7'/%3E%3Ccircle cx='64' cy='64' r='7'/%3E%3C/g%3E%3Cg fill='%234A6FB5'%3E%3Ccircle r='3.5'/%3E%3Ccircle cx='64' r='3.5'/%3E%3Ccircle cy='64' r='3.5'/%3E%3Ccircle cx='64' cy='64' r='3.5'/%3E%3C/g%3E%3C/svg%3E") repeat center top / 64px 64px;
+}
+
+/* Trama de puntos tipo halftone, para esquinas */
+.trama {
+  position: absolute;
+  width: 14rem;
+  height: 14rem;
+  pointer-events: none;
+  background-image: radial-gradient(var(--c-trama) 1.7px, transparent 2px);
+  background-size: 11px 11px;
+  -webkit-mask-image: radial-gradient(circle at var(--x, 100%) var(--y, 0%), #000 0, transparent 70%);
+          mask-image: radial-gradient(circle at var(--x, 100%) var(--y, 0%), #000 0, transparent 70%);
+}
+
+/* ---------- Tarjeta tipo nota (donaciones, galería) ---------- */
 .nota {
   position: relative;
-  border: 3px solid #3D2D28;
-  border-radius: 1.5rem;
-  box-shadow: 6px 6px 0 #3D2D28;
+  color: #2B1D22;               /* los papeles de color siempre llevan tinta oscura */
+  border: var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-dura);
   padding: 1.5rem;
   transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
   backface-visibility: hidden;
 }
 /* El hover solo en dispositivos con ratón; en celular se ve al presionar */
 @media (hover: hover) {
-  .nota:hover { transform: translateY(-4px) rotate(-2deg); z-index: 10; }
+  .nota:hover { transform: translateY(-4px) rotate(-1.5deg); z-index: 10; }
 }
-.nota:active { transform: rotate(-2deg); }
+.nota:active { transform: rotate(-1.5deg); }
 @media (prefers-reduced-motion: reduce) {
   .nota { transition: none; }
   .nota:hover, .nota:active { transform: none; }
 }
 
-/* Cinta: es el mismo trozo de index.html, hecho clase */
+/* Cinta adhesiva de collage */
 .cinta {
   position: absolute;
-  top: -1rem;
+  top: -0.9rem;
   left: 50%;
-  width: 8rem;
-  height: 2rem;
-  background: #EADDB8;
+  width: 7rem;
+  height: 1.75rem;
+  background: rgb(255 244 232 / 0.85);
+  border: 1px solid rgb(43 29 34 / 0.18);
   transform: translateX(-50%) rotate(var(--r, 3deg));
 }
 
-/* ---------- Listas de las tarjetas, con carácter propio ---------- */
-.lista-nota {
+/* ---------- Listas con estrellas de 5 puntas ---------- */
+.lista-estrella {
   list-style: none;
   padding-left: 0;
-  font-size: 1.125rem;
 }
-.lista-nota li {
+.lista-estrella li {
   position: relative;
   padding-left: 1.5rem;          /* las líneas largas quedan alineadas con el texto */
 }
-.lista-nota li::before {
-  content: "☆";
-  content: "☆" / "";             /* los lectores de pantalla no lo leen */
+.lista-estrella li::before {
+  content: "★";
+  content: "★" / "";             /* los lectores de pantalla no lo leen */
   position: absolute;
   left: 0;
-  top: 0.1em;
-  font-size: 0.8em;
+  top: 0.05em;
+  color: var(--c-rojo-firma);
 }
+/* Dentro de una nota de color, la estrella va en vino para que se distinga */
+.nota .lista-estrella li::before { color: #7F201F; }
+.lista-nota { font-size: 1.125rem; }
 /* En tabletas las columnas son angostas: letra un poco menor */
 @media (min-width: 768px) and (max-width: 1023px) {
   .lista-nota { font-size: 1rem; }
@@ -102,16 +326,17 @@ a { -webkit-tap-highlight-color: transparent; }
 
 /* ---------- Visor de invitaciones ---------- */
 .visor {
-  border: 3px solid #3D2D28;
-  border-radius: 1.5rem;
-  background: #FDF6E9;
+  border: var(--borde);
+  border-radius: var(--radio);
+  background: var(--c-fondo);
+  color: var(--c-texto);
   padding: 0;
   min-width: min(80vw, 20rem);
   max-width: 94vw;
-  box-shadow: 8px 8px 0 #3D2D28;
+  box-shadow: 8px 8px 0 var(--c-borde);
   overflow: hidden;
 }
-.visor::backdrop { background: rgb(61 45 40 / 0.82); }
+.visor::backdrop { background: rgb(43 29 34 / 0.85); }
 .visor[open] { animation: visor-entra 0.28s cubic-bezier(0.34, 1.3, 0.64, 1); }
 @keyframes visor-entra {
   from { opacity: 0; transform: scale(0.94) rotate(-1.5deg); }

@@ -48,13 +48,13 @@ function crearVisor() {
   visor.className = "visor";
   visor.setAttribute("aria-label", "Invitación en grande");
   const boton =
-    "inline-flex items-center gap-1 rounded-full border-[3px] border-tinta bg-crema px-4 py-2 text-sm font-extrabold transition-colors hover:bg-verde hover:text-crema focus:outline-none focus-visible:ring-4 focus-visible:ring-azul disabled:opacity-40 disabled:hover:bg-crema sm:text-base";
+    "inline-flex items-center gap-1 rounded-full border-2 border-borde bg-superficie px-4 py-2 text-sm font-extrabold text-tinta transition-colors hover:bg-primario hover:text-sobre-primario disabled:opacity-40 disabled:hover:bg-superficie disabled:hover:text-tinta sm:text-base";
   visor.innerHTML = `
     <figure class="p-3 sm:p-5">
       <img id="visor-img" src="" alt="" class="mx-auto block max-h-[70vh] w-auto max-w-[80vw] rounded-xl object-contain sm:max-w-[min(80vw,720px)]">
-      <figcaption id="visor-pie" class="mt-3 text-center font-titulo text-xl sm:text-2xl"></figcaption>
+      <figcaption id="visor-pie" class="mt-3 text-center text-lg font-extrabold sm:text-xl"></figcaption>
     </figure>
-    <div class="flex items-center justify-between gap-2 border-t-[3px] border-tinta p-3">
+    <div class="flex items-center justify-between gap-2 border-t-2 border-borde p-3">
       <button type="button" id="visor-ant" class="${boton}"><span aria-hidden="true">❮</span><span class="sr-only sm:not-sr-only">Más reciente</span></button>
       <button type="button" id="visor-cerrar" class="${boton}">Cerrar</button>
       <button type="button" id="visor-sig" class="${boton}"><span class="sr-only sm:not-sr-only">Más antigua</span><span aria-hidden="true">❯</span></button>
@@ -100,7 +100,7 @@ function aviso(el, texto) {
       : `<p class="text-lg font-bold">${texto}</p>`;
 }
 
-const COLORES_TARJETA = ["bg-rosa", "bg-amarillo" , "bg-azul", "bg-menta", "bg-lila", "bg-naranja", "bg-crema"];
+const COLORES_TARJETA = ["bg-st-rosa", "bg-st-amarillo", "bg-st-azul", "bg-st-bugambilia", "bg-st-verde", "bg-st-salmon", "bg-st-crema"];
 const MS_SEMANA = 7 * 24 * 60 * 60 * 1000;
 
 // El color depende de la semana de la fecha: no cambia cuando se agregan invitaciones
@@ -117,8 +117,8 @@ function pintarGaleria(caja) {
       <button type="button" data-invitacion="${i}" class="nota block w-full cursor-pointer ${colorDe(inv, i)} !p-3 text-center"
         aria-label="Ver en grande la invitación del ${escI(textoLargo(inv))}">
         <img src="${escI(inv.url)}" alt="Invitación del comedor, ${escI(textoLargo(inv))}" loading="lazy" decoding="async"
-           class="aspect-[4/5] w-full rounded-xl border-2 border-tinta object-cover">
-        <span class="mt-3 block font-titulo text-lg sm:text-xl">${escI(textoCorto(inv))}</span>
+           class="aspect-[4/5] w-full rounded-lg border-2 border-noche object-cover">
+        <span class="mt-3 block text-lg font-extrabold">${escI(textoCorto(inv))}</span>
       </button>
     </li>`,
     )
@@ -128,15 +128,15 @@ function pintarGaleria(caja) {
 function pintarUltima(caja) {
   const inv = lista[0];
   caja.innerHTML = `
-    <button type="button" data-invitacion="0" class="nota block w-full cursor-pointer bg-crema !p-3"
+    <button type="button" data-invitacion="0" class="nota block w-full cursor-pointer bg-superficie !p-3"
       aria-label="Ver en grande la invitación del ${escI(textoLargo(inv))}">
       <span aria-hidden="true" class="cinta"></span>
       <img src="${escI(inv.url)}" alt="Invitación del comedor, ${escI(textoLargo(inv))}" decoding="async"
-        class="aspect-[4/5] w-full rounded-xl object-cover">
+        class="aspect-[4/5] w-full rounded-lg object-cover">
     </button>
-    <p class="mt-6 text-center font-titulo text-2xl">${escI(textoLargo(inv))}</p>
+    <p class="mt-6 text-center text-xl font-extrabold">${escI(textoLargo(inv))}</p>
     <p class="mt-4 text-center">
-      <a href="galeria.html" class="inline-block rounded-full border-[3px] border-tinta bg-lila px-6 py-3 font-extrabold text-tinta shadow-[4px_4px_0_#3D2D28] transition hover:translate-x-[2px] hover:translate-y-[1px] focus:outline-none focus-visible:ring-4 focus-visible:ring-azul">Ver todas las invitaciones</a>
+      <a href="galeria.html" class="btn btn-sec">Ver todas las invitaciones</a>
     </p>`;
 }
 
