@@ -6,23 +6,148 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Donaciones | Comedor Comunitario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Nunito:wght@400;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/tailwind-config.js"></script>
   <script src="js/layout.js" defer></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28]">
+<body class="flex flex-col min-h-screen bg-fondo font-cuerpo text-cuerpo text-tinta">
   <header id="encabezado"></header>
 
-  <main>
-    <h1>Donaciones</h1>
-    <!-- Qué se puede donar (agua, despensa, dinero) y formulario de donación.
-       Diseño: Persona 2. Formulario (js/donaciones.js): Persona 4. -->
-  </main>
+  <main class="flex-1 overflow-x-clip">
+
+  <!-- ¿CÓMO PUEDES DONAR? -->
+  <section class="mx-auto max-w-5xl px-6 py-12 sm:py-16 lg:px-8">
+    <h1 class="font-titulo text-h1 text-balance">¿Quieres donar?</h1>
+    <p class="mt-4 max-w-prose">
+      Las donaciones nos ayudan a mantenernos funcionando, son una buena opción para apoyar a todos los implicados en esta iniciativa. Te proporcionaremos una guía detallada de cómo puedes hacernos llegar tu donativo, pero primero revisa esta sección completa.
+    </p>
+  </section>
+
+  <div class="cenefa" aria-hidden="true"></div>
+
+  <!-- ¿QUÉ NECESITAMOS? -->
+  <section class="mx-auto max-w-5xl px-10 py-12 sm:py-16 lg:px-8" aria-labelledby="t-necesitamos">
+    <h2 id="t-necesitamos" class="font-titulo text-h2 sm:text-4xl text-secundario">Necesitamos...</h2>
+    <p class="mt-4 max-w-prose">
+      Aquí puedes darte una idea de qué artículos necesita el comedor en este momento. Estas tarjetas tienen la intención de ser una guía para aquellos que no estén seguros de con qué poder ayudar. Aunque realmente todo es bienvenido. 
+    </p>
+    <div class="mt-10 grid gap-8 md:grid-cols-3 md:items-start md:gap-x-6 lg:gap-x-8">
+
+      <!-- Columna 1 -->
+      <div class="flex flex-col gap-8">
+        <article class="nota bg-st-rosa">
+          <h3 class="text-balance text-center text-h3 font-extrabold">Despensa básica</h3>
+          <ul role="list" class="lista-estrella lista-nota mt-4 space-y-1">
+            <li>Arroz</li><li>Frijol</li><li>Lentejas</li><li>Avena</li>
+            <li>Harina</li><li>Azúcar</li><li>Aceite</li>
+            <li>Pastas (fideo, coditos, fusilli)</li>
+          </ul>
+        </article>
+
+        <article class="nota bg-st-verde">
+          <span aria-hidden="true" class="cinta" style="--r:-3deg"></span>
+          <h3 class="text-balance text-center text-h3 font-extrabold">Para servir</h3>
+          <ul role="list" class="lista-estrella lista-nota mt-4 space-y-1">
+            <li>Platos reutilizables</li><li>Vasos reutilizables</li>
+            <li>Cubiertos</li><li>Servilletas</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="flex flex-col gap-8">
+        <article class="nota bg-st-amarillo">
+          <span aria-hidden="true" class="cinta"></span>
+          <h3 class="text-balance text-center text-h3 font-extrabold">Latas y enlatados</h3>
+          <ul role="list" class="lista-estrella lista-nota mt-4 space-y-1">
+            <li>Atún</li><li>Verduras enlatadas</li><li>Leche evaporada</li>
+            <li>Leche condensada</li><li>Frutas en almíbar</li><li>Otros enlatados</li>
+          </ul>
+        </article>
+
+        <article class="nota bg-st-bugambilia">
+          <h3 class="text-balance text-center text-h3 font-extrabold">Otros</h3>
+          <ul role="list" class="lista-estrella lista-nota mt-4 space-y-1">
+            <li>Chiles</li><li>Tomates</li><li>Papas</li><li>Sazonador de pollo</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="flex flex-col gap-8">
+        <article class="nota bg-st-azul">
+          <h3 class="text-balance text-center text-h3 font-extrabold">Postres y desayuno</h3>
+          <ul role="list" class="lista-estrella lista-nota mt-4 space-y-1">
+            <li>Sobres de gelatina</li><li>Cereales</li>
+            <li>Frutos secos</li><li>Chocolate en polvo</li>
+          </ul>
+        </article>
+
+        <article class="nota bg-st-salmon">
+          <span aria-hidden="true" class="cinta" style="--r:2deg"></span>
+          <h3 class="text-balance text-center text-h3 font-extrabold">¡Todo suma!</h3>
+          <p class="mt-4 text-center">
+            Si te interesa donar algo que no se encuentre listado, acércate o contáctanos en redes.
+          </p>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="cenefa" aria-hidden="true"></div>
+
+  <!-- ¿A DÓNDE IR? / ¿EFECTIVO? + SELLO -->
+  <section class="mx-auto grid max-w-5xl items-center gap-14 px-6 py-12 sm:py-16 md:grid-cols-[1fr_auto] lg:px-8">
+    <div class="max-w-prose space-y-10">
+      <div>
+        <h2 class="flex items-center gap-3 font-titulo text-h2 sm:text-4xl text-secundario"><svg class="h-9 w-9 shrink-0 text-firma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>¿A dónde ir?</h2>
+        <p class="mt-3">
+          Puedes entregar directamente en el comedor (mesas frente al Chedraui, en el edificio "Y") el martes de tu preferencia, o hacer tu registro y acordar un punto de reunión con alguno de los miembros.
+        </p>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <h2 class="font-titulo text-h2 sm:text-4xl text-secundario">¿Efectivo?</h2>
+          <span class="sello">Aportación voluntaria</span>
+        </div>
+        <p class="mt-3">
+          No hay problema: el comedor también se maneja por aportación voluntaria. Puedes buscar la alcancía en la mesa del comedor o preguntarle a alguno de los miembros. Con poco es más que suficiente para que otro compañero pueda disfrutar una comida completa.
+        </p>
+      </div>
+    </div>
+
+    <!-- Sello dentado -->
+    <div class="group/sello relative mx-auto grid aspect-square w-72 place-items-center text-center sm:w-80 md:mx-0 lg:w-96">
+        <svg viewBox="0 0 100 100" class="absolute inset-0 h-full w-full overflow-visible drop-shadow-[5px_5px_0_#7F201F] origin-[50%_90%] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/sello:scale-x-[1.06] group-hover/sello:scale-y-[0.92] group-active/sello:scale-x-[1.06] group-active/sello:scale-y-[0.92] motion-reduce:transition-none motion-reduce:group-hover/sello:scale-100 motion-reduce:group-active/sello:scale-100" aria-hidden="true" focusable="false">
+        <polygon fill="#F7C744" stroke="#7F201F" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"
+          points="50,2 58.5,7.3 68.4,5.7 74.2,13.8 83.9,16.1 86.2,25.8 94.3,31.6 92.7,41.5 98,50 92.7,58.5 94.3,68.4 86.2,74.2 83.9,83.9 74.2,86.2 68.4,94.3 58.5,92.7 50,98 41.5,92.7 31.6,94.3 25.8,86.2 16.1,83.9 13.8,74.2 5.7,68.4 7.3,58.5 2,50 7.3,41.5 5.7,31.6 13.8,25.8 16.1,16.1 25.8,13.8 31.6,5.7 41.5,7.3"/>
+      </svg>
+      <div class="relative px-[19%] text-noche transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover/sello:translate-y-1 group-active/sello:translate-y-1 motion-reduce:transition-none motion-reduce:group-hover/sello:translate-y-0">
+        <p class="font-titulo text-6xl sm:text-7xl">$7.00</p>
+        <p class="mt-1 text-base font-bold sm:text-lg">En promedio, cada plato servido cuesta unos siete pesos</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cenefa" aria-hidden="true"></div>
+
+  <!-- REGISTRO -->
+  <section class="mx-auto max-w-5xl px-6 py-12 sm:py-16 lg:px-8" aria-labelledby="t-registro">
+    <h2 id="t-registro" class="font-titulo text-h2 sm:text-4xl text-secundario">Registro</h2>
+    <p class="mt-3 max-w-prose">
+      Déjanos saber algunos datos para hacer más fácil la entrega de tu donativo. <strong>Agradecemos enormemente tu ayuda c:</strong>
+    </p>
+    <div class="mx-auto mt-8 max-w-auto">
+      <div id="donacion"></div>
+    </div>
+  </section>
+
+</main>
 
   <footer id="pie"></footer>
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/donaciones.js"></script>

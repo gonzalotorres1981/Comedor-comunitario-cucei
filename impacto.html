@@ -6,17 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nuestro impacto | Comedor Comunitario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Nunito:wght@400;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/tailwind-config.js"></script>
   <script src="js/layout.js" defer></script>
   <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body class="flex flex-col min-h-screen bg-[#FDF6E9] font-['Nunito'] text-[#3D2D28]">
+<body class="flex flex-col min-h-screen bg-fondo font-cuerpo text-cuerpo text-tinta">
   <header id="encabezado"></header>
 
   <main>
-    <h1>Nuestro impacto</h1>
+    <section class="w-full max-w-5xl mx-auto px-4 pt-12 pb-16 grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
+      <div><h1 class="font-titulo text-h1">Ups, trabajando en ello…</h1>
+      <p class="mt-4 max-w-prose">Esta página es parte de un proyecto que sigue en pruebas, agradecemos su paciencia.</p>
+      </div>
+      
+      <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Mona china">
+        <span aria-hidden="true" class="cinta"></span>
+        <div class="tarjeta p-6">
+          <img src="img/monachina.png" alt="Mona china jsjsjs" decoding="async"
+          class="aspect-[5/5] w-full rounded-xl object-cover">
+        </div>
+      </aside>
+    </section>
     <!-- Dashboard de impacto con gráficas de Chart.js (platos servidos, agua, beneficiados, horas de voluntariado).
        Diseño: Persona 2. Gráficas (js/impacto.js): Persona 5. -->
   </main>

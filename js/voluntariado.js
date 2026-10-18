@@ -19,17 +19,17 @@ const ACTIVIDADES = {
   cocinar: {
     nombre: "Cocinar en casa",
     nota: "Se cocina en tu casa. Al inscribirte, escríbele al comedor con tu código para saber qué preparar y dónde entregarlo.",
-    color: "#F4DE80",
+    color: "#F7C744",
   },
   servir: {
     nombre: "Servir",
     nota: "Ayudas a repartir los platos en el comedor.",
-    color: "#9DC4EC",
+    color: "#9DB7F2",
   },
   lavar: {
     nombre: "Lavar trastes",
     nota: "Se lava varias veces durante el servicio, según se van acabando los platos.",
-    color: "#F2A7C9",
+    color: "#F08BC0",
   },
 };
 
@@ -97,21 +97,19 @@ function cuenta(data) {
 }
 
 // ---------- estilos compartidos (Tailwind) ----------
-const TARJETA_V =
-  "rounded-3xl border-[3px] border-[#3D2D28] shadow-[6px_6px_0_#3D2D28] p-6";
-const TITULO_V = "font-['Lilita_One'] text-[#3D2D28] leading-tight";
-const CHIP_V =
-  "inline-block rounded-full border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-1 text-sm font-bold";
-const CAMPO_V =
-  "w-full rounded-xl border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-2 text-base focus:outline-none focus:ring-4 focus:ring-[#9DC4EC]";
-const BOTON_V =
-  "rounded-full border-[3px] border-[#3D2D28] bg-[#43A592] px-6 py-3 font-extrabold text-white shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#9DC4EC] disabled:opacity-60";
+// Las clases tarjeta, chip, campo y btn viven en css/estilos.css
+const TARJETA_V = "tarjeta";
+const TITULO_V = "font-titulo text-h2 leading-tight";   // h2: Permanent Marker
+const SUBTITULO_V = "text-h3 font-extrabold";            // h3 y avisos: Nunito 800
+const CHIP_V = "chip";
+const CAMPO_V = "campo";
+const BOTON_V = "btn w-full sm:w-auto";
 
 let turnos = [];
 
 // ---------- carga ----------
 async function cargarTurnosPublicos() {
-  cajaTurnos.innerHTML = `<p>Cargando turnos…</p>`;
+  cajaTurnos.innerHTML = `<p class="font-bold">Cargando turnos…</p>`;
   const { data, error } = await sb
     .from("turnos")
     .select("id, fecha, actividad, hora_inicio, horas, cupo")
@@ -145,9 +143,9 @@ async function cargarTurnosPublicos() {
 }
 
 function avisoV(titulo, texto) {
-  return `<div class="${TARJETA_V} bg-[#F4DE80]">
-    <h2 class="${TITULO_V} text-2xl mb-2">${escV(titulo)}</h2>
-    <p class="text-lg">${escV(texto)}</p>
+  return `<div class="${TARJETA_V} bg-st-amarillo p-6 text-noche">
+    <h2 class="${SUBTITULO_V} mb-2">${escV(titulo)}</h2>
+    <p>${escV(texto)}</p>
   </div>`;
 }
 
@@ -160,7 +158,7 @@ function pintarTurnos() {
     .map(
       ([fecha, lista]) => `
       <section class="mb-10">
-        <h2 class="${TITULO_V} text-3xl mb-4 first-letter:uppercase">${escV(diaLargo(fecha))}</h2>
+        <h2 class="${TITULO_V} mb-4 text-secundario first-letter:uppercase">${escV(diaLargo(fecha))}</h2>
         <div class="space-y-6">${lista.map(tarjetaTurno).join("")}</div>
       </section>`,
     )
@@ -172,7 +170,7 @@ function pintarTurnos() {
 }
 
 function tarjetaTurno(t) {
-  const act = ACTIVIDADES[t.actividad] || { nombre: t.actividad, nota: "", color: "#FDF6E9" };
+  const act = ACTIVIDADES[t.actividad] || { nombre: t.actividad, nota: "", color: "#FFF4E8" };
   const quedan = t.inscritos === null ? null : Math.max(t.cupo - t.inscritos, 0);
   const codigo = codigoGuardado(t.id);
 
@@ -186,14 +184,19 @@ function tarjetaTurno(t) {
     </div>`;
 
   return `
-    <article id="turno-${t.id}" class="${TARJETA_V}" style="background:${act.color}">
-      <h3 class="${TITULO_V} text-2xl">${escV(act.nombre)}</h3>
-      <div class="flex flex-wrap gap-2 my-3">
-        <span class="${CHIP_V}">${escV(horaLegible(t.hora_inicio))}, ${Number(t.horas)} h</span>
-        ${quedan === null ? "" : `<span class="${CHIP_V}">Quedan ${quedan} de ${t.cupo} lugares</span>`}
+    <article id="turno-${t.id}" class="${TARJETA_V} overflow-hidden">
+      <div class="flex items-center gap-3 border-b-2 border-borde px-6 py-3 text-noche" style="background:${act.color}">
+        <span class="text-vino" aria-hidden="true">★</span>
+        <h3 class="${SUBTITULO_V}">${escV(act.nombre)}</h3>
       </div>
-      <p class="text-lg">${escV(act.nota)}</p>
-      ${accion}
+      <div class="p-6">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="${CHIP_V}">${escV(horaLegible(t.hora_inicio))}, ${Number(t.horas)} h</span>
+          ${quedan === null ? "" : `<span class="${CHIP_V}">Quedan ${quedan} de ${t.cupo} lugares</span>`}
+        </div>
+        <p>${escV(act.nota)}</p>
+        ${accion}
+      </div>
     </article>`;
 }
 
@@ -203,11 +206,11 @@ function boletoTurno(t, codigo) {
     `Voluntariado ${diaLargo(t.fecha)}, ${act}, código ${codigo}`,
   );
   return `
-    <div class="mt-4 rounded-2xl border-[3px] border-[#3D2D28] bg-[#FFFCF5] p-5 text-center" aria-live="polite">
-      <p class="font-bold">Ya estás en este turno. Tu código:</p>
-      <p class="my-3 font-['Lilita_One'] text-5xl tracking-[0.25em]">${escV(codigo)}</p>
+    <div class="mt-4 rounded-xl border-2 border-borde bg-superficie-alt p-5 text-center" aria-live="polite">
+      <p class="font-bold"><span class="text-exito" aria-hidden="true">✓</span> Ya estás en este turno. Tu código:</p>
+      <p class="my-3 inline-block rounded-xl border-2 border-dashed border-borde bg-st-amarillo px-6 py-2 text-5xl font-extrabold tracking-[0.25em] text-noche">${escV(codigo)}</p>
       <p class="text-left">Toma captura y escríbele al comedor con tu código para coordinarte:</p>
-      <p class="mt-2"><a class="underline font-bold break-all" href="mailto:${CORREO_COMEDOR}?subject=${asunto}">${CORREO_COMEDOR}</a></p>
+      <p class="mt-2"><a class="enlace break-all" href="mailto:${CORREO_COMEDOR}?subject=${asunto}">${CORREO_COMEDOR}</a></p>
       <p class="mt-1 font-bold">o por Instagram: ${escV(INSTAGRAM)}</p>
     </div>`;
 }
@@ -217,18 +220,18 @@ function abrirFormulario(id) {
   const t = turnos.find((x) => x.id === id);
   const caja = document.getElementById("accion-" + id);
   caja.innerHTML = `
-    <form class="space-y-4 rounded-2xl border-[3px] border-[#3D2D28] bg-[#FFFCF5] p-5" novalidate>
+    <form class="space-y-4 rounded-xl border-2 border-borde bg-superficie-alt p-5" novalidate>
       <p>No pedimos tu nombre ni tu correo.</p>
       <div>
         <label for="apodo-${id}" class="block font-bold mb-1">Apodo (opcional)</label>
         <input id="apodo-${id}" class="${CAMPO_V}" maxlength="30" autocomplete="off" placeholder="Como quieras que te diga el comedor">
       </div>
       <label class="flex gap-3 items-start">
-        <input id="priv-${id}" type="checkbox" class="mt-1 h-5 w-5 accent-[#43A592]">
-        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="underline font-bold">aviso de privacidad</a> (se abre en otra pestaña).</span>
+        <input id="priv-${id}" type="checkbox" class="casilla mt-1">
+        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="enlace">aviso de privacidad</a> (se abre en otra pestaña).</span>
       </label>
       <button type="submit" class="${BOTON_V}">Confirmar inscripción</button>
-      <p class="font-bold text-[#B3261E]" role="alert"></p>
+      <p class="msg-error" role="alert"></p>
     </form>`;
 
   const form = caja.querySelector("form");

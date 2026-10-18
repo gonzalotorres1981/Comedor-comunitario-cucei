@@ -106,19 +106,17 @@ function aNumero(data) {
 }
 
 // ---------- estilos compartidos (Tailwind) ----------
-const TARJETA =
-  "rounded-3xl border-[3px] border-[#3D2D28] shadow-[6px_6px_0_#3D2D28] p-6 sm:p-8";
-const TITULO = "font-['Lilita_One'] text-[#3D2D28] leading-tight";
-const CHIP =
-  "inline-block rounded-full border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-1 text-sm font-bold";
-const CAMPO =
-  "w-full rounded-xl border-2 border-[#3D2D28] bg-[#FFFCF5] px-3 py-2 text-base focus:outline-none focus:ring-4 focus:ring-[#9DC4EC]";
-const BOTON =
-  "rounded-full border-[3px] border-[#3D2D28] bg-[#43A592] px-6 py-3 font-extrabold text-white shadow-[4px_4px_0_#3D2D28] hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus:ring-4 focus:ring-[#9DC4EC] disabled:opacity-60";
+// Las clases tarjeta, chip, campo, btn y sello viven en css/estilos.css
+const TARJETA = "tarjeta p-6 sm:p-8";
+const TITULO = "font-titulo text-h2 leading-tight";   // h2: Permanent Marker
+const SUBTITULO = "text-h3 font-extrabold";            // h3 y avisos: Nunito 800
+const CHIP = "chip";
+const CAMPO = "campo";
+const BOTON = "btn btn-lg w-full sm:w-auto";
 
 // ---------- carga ----------
 async function cargarMenu() {
-  cajaReserva.innerHTML = `<p class="text-[#3D2D28]">Cargando el menú…</p>`;
+  cajaReserva.innerHTML = `<p class="font-bold">Cargando el menú…</p>`;
 
   const forzado = new URLSearchParams(location.search).get("menu");
   let consulta = sb
@@ -139,7 +137,7 @@ async function cargarMenu() {
     cajaReserva.innerHTML = aviso(
       "No se pudo cargar el menú",
       "Revisa tu conexión y recarga la página.",
-      "#F2A7C9",
+      "#FFE4E4",
     );
     return;
   }
@@ -148,7 +146,7 @@ async function cargarMenu() {
     cajaReserva.innerHTML = aviso(
       "Todavía no hay menú para el próximo martes",
       "El comedor lo publica entre miércoles y sábado. Vuelve pronto o síguenos en @movimientoestudiantil_cucei.",
-      "#F4DE80",
+      "#F7C744",
     );
     return;
   }
@@ -159,9 +157,9 @@ async function cargarMenu() {
 }
 
 function aviso(titulo, texto, color) {
-  return `<div class="${TARJETA}" style="background:${color}">
-    <h2 class="${TITULO} text-2xl mb-2">${escR(titulo)}</h2>
-    <p class="text-[#3D2D28] text-lg">${escR(texto)}</p>
+  return `<div class="${TARJETA} text-noche" style="background:${color}">
+    <h2 class="${SUBTITULO} mb-2">${escR(titulo)}</h2>
+    <p>${escR(texto)}</p>
   </div>`;
 }
 
@@ -176,13 +174,18 @@ function pintar(menu, ocupados) {
   const codigo = leerCodigo(menu.id);
 
   const tarjetaMenu = `
-    <article class="${TARJETA} bg-[#F4DE80] mb-8">
-      <p class="font-bold text-[#3D2D28] text-lg first-letter:uppercase">${escR(fechaLarga(menu.fecha))}</p>
-      <h2 class="${TITULO} text-4xl sm:text-5xl my-2">${escR(menu.platillo)}</h2>
-      ${menu.descripcion ? `<p class="text-[#3D2D28] text-lg mb-4">${escR(menu.descripcion)}</p>` : ""}
-      <div class="flex flex-wrap gap-2 mt-3">
-        ${quedan === null ? "" : `<span class="${CHIP}">Quedan ${quedan} de ${menu.porciones_disponibles} lugares</span>`}
-        <span class="${CHIP}">${cerrado ? "Reservas cerradas" : "Reserva hasta el " + escR(cierreLegible(menu.cierre_reservas))}</span>
+    <article class="tarjeta relative mb-10">
+      <p class="franja px-6 py-3 text-lg first-letter:uppercase sm:px-8">${escR(fechaLarga(menu.fecha))} · 1:00 a 6:00 p.m.</p>
+      <div class="relative p-6 pt-8 sm:p-8">
+        <span class="sello absolute -top-4 right-3 sm:right-6" style="--r:3deg">Aportación voluntaria</span>
+        <p class="text-sm font-extrabold uppercase tracking-wide text-tinta-2">Menú del día</p>
+        <h2 class="${TITULO} mt-1 flex gap-3"><span class="text-firma" aria-hidden="true">★</span><span>${escR(menu.platillo)}</span></h2>
+        ${menu.descripcion ? `<p class="mt-3">${escR(menu.descripcion)}</p>` : ""}
+        <div class="flex flex-wrap gap-2 mt-5">
+          ${quedan === null ? "" : `<span class="${CHIP}">Quedan ${quedan} de ${menu.porciones_disponibles} lugares</span>`}
+          <span class="${CHIP}">${cerrado ? "Reservas cerradas" : "Reserva hasta el " + escR(cierreLegible(menu.cierre_reservas))}</span>
+        </div>
+        <p class="mt-5 border-t-2 border-dashed border-borde pt-4 text-sm font-bold text-tinta-2">Edificio "Y" (frente al Chedraui) · Lleva tu plato y vaso, porfis.</p>
       </div>
     </article>`;
 
@@ -192,13 +195,13 @@ function pintar(menu, ocupados) {
     abajo = aviso(
       "Las reservas para este martes ya cerraron",
       "Aún puedes llegar sin reserva: el comedor atiende mientras haya comida.",
-      "#9DC4EC",
+      "#9DB7F2",
     );
   else if (lleno)
     abajo = aviso(
       "Ya no quedan lugares para reservar",
       "Puedes llegar sin reserva: el comedor atiende mientras haya comida.",
-      "#9DC4EC",
+      "#9DB7F2",
     );
   else abajo = formulario();
 
@@ -215,14 +218,14 @@ function formulario() {
   ).join("");
 
   return `
-    <form id="form-reserva" class="${TARJETA} bg-[#FDF6E9] space-y-5" novalidate>
+    <form id="form-reserva" class="${TARJETA} space-y-5" novalidate>
       <div>
-        <h2 class="${TITULO} text-3xl">Reserva tu plato</h2>
-        <p class="text-[#3D2D28] mt-1">No pedimos tu nombre ni tu correo. Al reservar te damos un código para recoger tu plato.</p>
+        <h2 class="${TITULO} text-secundario">Reserva tu plato</h2>
+        <p class="mt-1">No pedimos tu nombre ni tu correo. Al reservar te damos un código para recoger tu plato.</p>
       </div>
 
       <div>
-        <label for="r-carrera" class="block font-bold text-[#3D2D28] mb-1">Carrera</label>
+        <label for="r-carrera" class="block font-bold mb-1">Carrera</label>
         <select id="r-carrera" class="${CAMPO}" required>
           <option value="">Elige tu carrera</option>
           <optgroup label="CUCEI">${opciones(CARRERAS_CUCEI)}</optgroup>
@@ -231,33 +234,34 @@ function formulario() {
       </div>
 
       <div>
-        <label for="r-semestre" class="block font-bold text-[#3D2D28] mb-1">Semestre</label>
+        <label for="r-semestre" class="block font-bold mb-1">Semestre</label>
         <select id="r-semestre" class="${CAMPO}" required>
           <option value="">Elige tu semestre</option>
           ${semestres}
         </select>
       </div>
 
-      <label class="flex gap-3 items-start text-[#3D2D28]">
-        <input id="r-privacidad" type="checkbox" class="mt-1 h-5 w-5 accent-[#43A592]" required>
-        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="underline font-bold">aviso de privacidad</a> (se abre en otra pestaña).</span>
+      <label class="flex gap-3 items-start">
+        <input id="r-privacidad" type="checkbox" class="casilla mt-1" required>
+        <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener" class="enlace">aviso de privacidad</a> (se abre en otra pestaña).</span>
       </label>
 
       <button type="submit" class="${BOTON}">Reservar mi plato</button>
-      <p id="r-msg" class="font-bold text-[#B3261E]" role="alert"></p>
+      <p id="r-msg" class="msg-error" role="alert"></p>
     </form>`;
 }
 
 function boleto(menu, codigo) {
   return `
-    <section class="${TARJETA} bg-[#8CC9AF] text-center" aria-live="polite">
-      <h2 class="${TITULO} text-3xl">Tu plato está reservado</h2>
-      <p class="text-[#3D2D28] mt-1 first-letter:uppercase">${escR(fechaLarga(menu.fecha))}</p>
-      <p class="my-6 inline-block rounded-2xl border-[3px] border-dashed border-[#3D2D28] bg-[#FFFCF5] px-8 py-4 font-['Lilita_One'] text-6xl tracking-[0.25em] text-[#3D2D28]">${escR(codigo)}</p>
-      <ul class="text-left text-[#3D2D28] text-lg max-w-md mx-auto space-y-2 list-disc pl-6">
+    <section class="${TARJETA} text-center" aria-live="polite">
+      <p class="inline-flex items-center gap-2 rounded-full border-2 border-exito px-3 py-1 text-sm font-extrabold text-exito"><span aria-hidden="true">✓</span> Reserva confirmada</p>
+      <h2 class="${TITULO} mt-3">Tu plato está reservado</h2>
+      <p class="mt-1 font-bold text-tinta-2 first-letter:uppercase">${escR(fechaLarga(menu.fecha))}</p>
+      <p class="my-6 inline-block rounded-xl border-2 border-dashed border-borde bg-st-amarillo px-8 py-4 text-6xl font-extrabold tracking-[0.25em] text-noche">${escR(codigo)}</p>
+      <ul class="lista-estrella text-left max-w-md mx-auto space-y-2">
         <li>Toma captura de esta pantalla.</li>
         <li>El martes, di tu código al recoger tu plato.</li>
-        <li>Lleva tu credencial UdeG.</li>
+        <li>Lleva tu credencial UdeG, y tu plato y vaso.</li>
       </ul>
     </section>`;
 }
