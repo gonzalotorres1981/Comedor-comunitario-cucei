@@ -140,7 +140,7 @@ function pintarUltima(caja) {
     </p>`;
 }
 
-const FUENTE = "local"; // cambiar a "supabase" cuando Luz termine
+const FUENTE = "supabase"; // cambiar a "supabase" cuando Luz termine
 
 async function cargarInvitaciones() {
   let items;

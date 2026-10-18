@@ -66,7 +66,7 @@ const HEADER = `
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
   <nav aria-label="Principal (móvil)">
-    <div class="zona-oscura mx-auto mt-2 w-11/12 max-w-[20rem] rounded-xl border-2 border-borde bg-talavera p-4 shadow-dura">
+    <div class="zona-oscura mx-auto mt-2 w-11/12 max-w-[20rem]">
       <img src="img/logo-comcom-tilted.svg" alt="Comedor Comunitario" class="mx-auto block h-auto w-full">
     </div>
     <ul class="mt-6 space-y-3">
@@ -89,7 +89,7 @@ const SOBRE = icono('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M
 // Objetivos de Desarrollo Sostenible del proyecto, con su color oficial
 const ODS = [
   { n: 2,  texto: "Hambre cero",                              color: "#DDA63A" },
-  { n: 12, texto: "Producción y consumo responsables",        color: "#BF8B2E" },
+  { n: 12, texto: "Producción y consumo responsables",        color: "#7F201F" },
   { n: 17, texto: "Alianzas para lograr los objetivos",       color: "#19486A" },
 ];
 
@@ -100,7 +100,7 @@ const FOOTER = `
     <div class="flex flex-col items-center gap-5 text-center sm:flex-row sm:items-start sm:text-left">
       <img src="img/mov-estudiantil-kraft.svg" alt="Sello del Movimiento Estudiantil CUCEI" class="h-32 w-32 shrink-0 object-contain">
       <div>
-        <p class="flex items-center justify-center gap-2 font-titulo text-2xl sm:justify-start">Comedor Comunitario CUCEI <span class="firma-a text-lg" aria-hidden="true">A</span></p>
+        <p class="text-center font-titulo text-2xl sm:text-left">Comedor Comunit<span class="sr-only"></span><span class="firma-a" aria-hidden="true"></span>rio CUCEI</p>
         <p class="mt-1">Organizado por el Movimiento Estudiantil CUCEI.</p>
         <ul class="mt-3 space-y-1 font-bold">
           <li class="flex items-center justify-center gap-2 sm:justify-start">${RELOJ}<span>Martes, 1:00 a 6:00 p.m.</span></li>

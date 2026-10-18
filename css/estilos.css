@@ -210,18 +210,17 @@ a { -webkit-tap-highlight-color: transparent; }
   transform: rotate(var(--r, -3deg));
 }
 
-/* ---------- Ⓐ roja: firma decorativa (siempre con aria-hidden) ---------- */
+/* ---------- Ⓐ roja: reemplaza la A de "Comunitario" (siempre aria-hidden) ---------- */
 .firma-a {
-  display: inline-grid;
-  place-items: center;
-  width: 1.5em;
-  height: 1.5em;
-  border: 0.12em solid var(--c-rojo-firma);
-  border-radius: 50%;
-  color: var(--c-rojo-firma);
-  font-family: var(--f-titulo);
-  line-height: 1;
-  transform: rotate(var(--r, -10deg));
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  margin-inline: 0.02em;
+  vertical-align: -0.18em;     
+  background-color: var(--c-rojo-firma);
+  transform: rotate(var(--r, -8deg));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Cpath d='M25 95L50 12L77 95M8 71L93 63'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Cpath d='M25 95L50 12L77 95M8 71L93 63'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
   user-select: none;
 }
 
