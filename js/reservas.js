@@ -173,12 +173,15 @@ function pintar(menu, ocupados) {
   const lleno = quedan === 0;
   const codigo = leerCodigo(menu.id);
 
+  //
+
   const tarjetaMenu = `
     <article class="tarjeta relative mb-10">
       <p class="franja px-6 py-3 text-lg first-letter:uppercase sm:px-8">${escR(fechaLarga(menu.fecha))} · 1:00 a 6:00 p.m.</p>
       <div class="relative p-6 pt-8 sm:p-8">
-        <span class="sello absolute -top-4 right-3 sm:right-6" style="--r:3deg">Aportación voluntaria</span>
-        <p class="text-sm font-extrabold uppercase tracking-wide text-tinta-2">Menú del día</p>
+      <img src="img/sello-aportacion.svg" alt="Aportación voluntaria" width="160" height="100"
+          class="sello-img -top-1 right-0 z-10 w-40 sm:right-6 md:-top-1 md:w-52 lg:-top-2 lg:-right-0.5 lg:w-64" style="--r:10deg">
+     <p class="text-sm font-extrabold uppercase tracking-wide text-tinta-2">Menú del día</p>
         <h2 class="${TITULO} mt-1 flex gap-3"><span class="text-firma" aria-hidden="true">★</span><span>${escR(menu.platillo)}</span></h2>
         ${menu.descripcion ? `<p class="mt-3">${escR(menu.descripcion)}</p>` : ""}
         <div class="flex flex-wrap gap-2 mt-5">

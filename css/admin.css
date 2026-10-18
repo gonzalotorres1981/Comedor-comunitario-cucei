@@ -26,18 +26,20 @@
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --fondo: #1B1517;
-    --papel: #2A2124;
-    --papel-alt: #33282C;
-    --tinta: #F6EBDD;
-    --tinta-2: #C9B8B0;
-    --primario: #FF7A6B;
-    --primario-hover: #FF968A;
-    --sobre-primario: #1B1517;
+    --fondo: #1A1222;
+    --papel: #271B30;
+    --papel-alt: #31223D;
+    --tinta: #F7EAF3;
+    --tinta-2: #C9B5C8;
+    --primario: #F08BC0;
+    --primario-hover: #F7A8D0;
+    --sobre-primario: #1A1222;
+    --azul: #B9A5E6;          /* antes no se cambiaba en modo oscuro (ver abajo) */
+    --sobre-azul: #1A1222;
     --exito: #7ED39A;
-    --error: #FF8FA0;
+    --error: #FF7A7A;
     --foco: #F7C744;
-    --linea: #5A4A4F;
+    --linea: #5B4668;
   }
 }
 * {
@@ -110,7 +112,7 @@ textarea {
     transform: translate(2px, 2px);
   }
   .btn.sec:hover {
-    background: var(--papel-alt);
+    background: var(--fondo);
   }
 }
 .btn:active {

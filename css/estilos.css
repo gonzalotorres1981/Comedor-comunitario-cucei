@@ -43,27 +43,28 @@
   --sombra-dura-press: 2px 2px 0 var(--c-borde);
 }
 
-/* Modo oscuro, inspirado en el cartel del 1 sep */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --c-primario: #FF7A6B;      /* lleva texto oscuro encima */
-    --c-primario-hover: #FF968A;
+    --c-primario: #F08BC0;      /* lleva texto oscuro encima */
+    --c-primario-hover: #F7A8D0;
     --c-rojo-firma: #FF5A4E;
-    --c-secundario: #9DB7F2;
-    --c-terciario: #F08BC0;
-    --c-fondo: #1B1517;
-    --c-superficie: #2A2124;
-    --c-superficie-alt: #33282C;
-    --c-texto: #F6EBDD;
-    --c-texto-2: #C9B8B0;
-    --c-borde: #F6EBDD;
-    --c-sobre-oscuro: #1B1517;
+    --c-secundario: #B9A5E6;
+    --c-terciario: #FFB86B;
+    --c-fondo: #1A1222;
+    --c-superficie: #271B30;
+    --c-superficie-alt: #31223D;
+    --c-texto: #F7EAF3;
+    --c-texto-2: #C9B5C8;
+    --c-borde: #F7EAF3;
+    --azul: #B9A5E6;
+    --sobre-azul: #1A1222;
+    --c-sobre-oscuro: #1A1222;
     --c-exito: #7ED39A;
     --c-alerta: #F7C744;
-    --c-error: #FF8FA0;
+    --c-error: #FF7A7A;         /* rojizo, para distinguirlo del rosa del botón */
     --c-foco: #F7C744;
-    --c-trama: rgb(255 122 107 / 0.28);
+    --c-trama: rgb(240 139 192 / 0.26);
   }
 }
 
@@ -118,7 +119,8 @@ a { -webkit-tap-highlight-color: transparent; }
     box-shadow: var(--sombra-dura-press);
     transform: translate(2px, 2px);
   }
-  .btn-sec:is(a, button):hover { background: var(--c-superficie-alt); }
+  
+  .btn-sec:is(a, button):hover { background: var(--fondo); }
 }
 .btn:is(a, button):active {
   box-shadow: 0 0 0 var(--c-borde);
@@ -192,7 +194,7 @@ a { -webkit-tap-highlight-color: transparent; }
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
-@media (hover: hover) { .enlace:hover { text-decoration-color: var(--c-rojo-firma); text-decoration-thickness: 3px; } }
+@media (hover: hover) { .enlace:hover { text-decoration-color: var(--c-primario-hover); text-decoration-thickness: 2px; color: var(--c-primario-hover)} }
 
 /* ---------- Sello "Aportación voluntaria" ---------- */
 .sello {
@@ -210,17 +212,26 @@ a { -webkit-tap-highlight-color: transparent; }
   transform: rotate(var(--r, -3deg));
 }
 
+/* Sello como imagen: se posiciona con clases de Tailwind y se inclina con --r */
+.sello-img {
+  position: absolute;
+  height: auto;
+  transform: rotate(var(--r, -3deg));
+  pointer-events: none;
+}
+
 /* ---------- Ⓐ roja: reemplaza la A de "Comunitario" (siempre aria-hidden) ---------- */
 .firma-a {
+  --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Cpath d='M25 95L50 12L77 95M8 60L93 52'/%3E%3C/g%3E%3C/svg%3E");
   display: inline-block;
   width: 1.1em;
   height: 1.1em;
   margin-inline: 0.02em;
-  vertical-align: -0.18em;     
+  vertical-align: -0.18em;
   background-color: var(--c-rojo-firma);
   transform: rotate(var(--r, -8deg));
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Cpath d='M25 95L50 12L77 95M8 71L93 63'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3Cpath d='M25 95L50 12L77 95M8 71L93 63'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--forma) center / contain no-repeat;
+          mask: var(--forma) center / contain no-repeat;
   user-select: none;
 }
 
@@ -234,7 +245,7 @@ a { -webkit-tap-highlight-color: transparent; }
   height: 30px;
   pointer-events: none;
   /* Con fondo: en celular el encabezado es fijo y así tapa el texto que pasa debajo */
-  background: var(--c-fondo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30' viewBox='0 0 160 30'%3E%3Cdefs%3E%3Cpath id='b' fill-rule='evenodd' d='M4 4h32v17l-4 5-4-5-4 5-4-5-4 5-4-5-4 5-4-5zM20 7.5l4 5-4 5-4-5zM9 9h3v3H9zM28 9h3v3h-3z'/%3E%3C/defs%3E%3Cpath d='M0 4h160' stroke='%231E3A6E' stroke-width='2'/%3E%3Cuse href='%23b' fill='%23E8242B'/%3E%3Cuse href='%23b' x='40' fill='%23F7C744'/%3E%3Cuse href='%23b' x='80' fill='%23F08BC0'/%3E%3Cuse href='%23b' x='120' fill='%237AAD82'/%3E%3C/svg%3E") repeat-x left top / 160px 30px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30' viewBox='0 0 160 30'%3E%3Cdefs%3E%3Cpath id='b' fill-rule='evenodd' d='M4 4h32v17l-4 5-4-5-4 5-4-5-4 5-4-5-4 5-4-5zM20 7.5l4 5-4 5-4-5zM9 9h3v3H9zM28 9h3v3h-3z'/%3E%3C/defs%3E%3Cpath d='M0 4h160' stroke='%231E3A6E' stroke-width='2'/%3E%3Cuse href='%23b' fill='%23E8242B'/%3E%3Cuse href='%23b' x='40' fill='%23F7C744'/%3E%3Cuse href='%23b' x='80' fill='%23F08BC0'/%3E%3Cuse href='%23b' x='120' fill='%237AAD82'/%3E%3C/svg%3E") repeat-x left top / 160px 30px;
 }
 /* Temporada de Día de Muertos: cempasúchil, naranja, bugambilia y morado */
 .temporada-muertos .papel-picado {
@@ -256,8 +267,8 @@ a { -webkit-tap-highlight-color: transparent; }
 /* Trama de puntos tipo halftone, para esquinas */
 .trama {
   position: absolute;
-  width: 14rem;
-  height: 14rem;
+  width: 20rem;
+  height: 20rem;
   pointer-events: none;
   background-image: radial-gradient(var(--c-trama) 1.7px, transparent 2px);
   background-size: 11px 11px;
