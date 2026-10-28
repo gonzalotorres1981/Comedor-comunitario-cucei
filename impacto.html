@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- impacto.html | Responsable: Persona 2 (diseño) -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -15,29 +14,76 @@
 <body class="flex flex-col min-h-screen bg-fondo font-cuerpo text-cuerpo text-tinta">
   <header id="encabezado"></header>
 
-  <main>
-    <section class="w-full max-w-5xl mx-auto px-4 pt-12 pb-16 grid gap-12 md:grid-cols-[1.3fr_1fr] items-center">
-      <div><h1 class="font-titulo text-h1">Ups, trabajando en ello…</h1>
-      <p class="mt-4 max-w-prose">Esta página es parte de un proyecto que sigue en pruebas, agradecemos su paciencia.</p>
+  <main class="flex-1">
+    <section class="w-full max-w-5xl mx-auto px-4 pt-12 pb-16">
+      <div class="max-w-3xl mb-8">
+        <p class="font-bold uppercase tracking-wide text-sm">Comedor Comunitario CUCEI</p>
+        <h1 class="font-titulo text-h1 mt-2">Nuestro impacto</h1>
+        <p class="mt-4 max-w-prose">Consulta qué ha pasado en el comedor: reservas, comidas, agua donada y horas de voluntariado.</p>
       </div>
-      
-      <aside class="relative mx-auto w-full min-w-[280px] max-w-sm rotate-[-2deg] shrink-0 mt-4 lg:mt-0" aria-label="Mona china">
-        <span aria-hidden="true" class="cinta"></span>
-        <div class="tarjeta p-6">
-          <img src="img/monachina.png" alt="Mona china jsjsjs" decoding="async"
-          class="aspect-[5/5] w-full rounded-xl object-cover">
-        </div>
-      </aside>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- 1. Resumen de comidas (ODS 2 y 12) -->
+        <section class="md:col-span-2 bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-resumen">
+          <h2 id="titulo-resumen" class="text-xl md:text-2xl font-bold">Reservas y comidas por martes</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Compara cuántas reservas hubo cada martes con los platos que el comedor preparó, sirvió y le sobraron. Se relaciona con el ODS 2 (hambre cero) y el ODS 12 (consumo responsable).</p>
+          <p id="estado-resumen" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-resumen" class="relative w-full hidden" style="height: min(58vh, 460px); min-height: 300px;">
+            <canvas id="grafica-resumen" role="img" aria-label="Gráfica de barras de reservas, platos preparados, platos servidos y platos sobrantes por fecha"></canvas>
+          </div>
+          <p class="mt-4 text-xs text-tinta-2">Los platos preparados y servidos pueden aparecer sin valor cuando el comedor todavía no los ha registrado. Los platos sobrantes son la diferencia entre preparados y servidos.</p>
+        </section>
+
+        <!-- 2. Reservas por carrera (ODS 2) -->
+        <section class="bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-carrera">
+          <h2 id="titulo-carrera" class="text-xl md:text-2xl font-bold">Reservas por carrera</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Muestra de qué carreras provienen las reservas de comida registradas. ODS 2.</p>
+          <p id="estado-carrera" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-carrera" class="relative w-full hidden" style="height: 320px;">
+            <canvas id="grafica-carrera" role="img" aria-label="Gráfica de barras horizontales de reservas por carrera"></canvas>
+          </div>
+        </section>
+
+        <!-- 3. Reservas por semestre (ODS 2) -->
+        <section class="bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-semestre">
+          <h2 id="titulo-semestre" class="text-xl md:text-2xl font-bold">Reservas por semestre</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Muestra en qué semestre se encuentran quienes hicieron las reservas de comida registradas. ODS 2.</p>
+          <p id="estado-semestre" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-semestre" class="relative w-full hidden" style="height: 320px;">
+            <canvas id="grafica-semestre" role="img" aria-label="Gráfica de barras de reservas por semestre"></canvas>
+          </div>
+        </section>
+
+        <!-- 4. Litros de agua (ODS 12 y 17) -->
+        <section class="bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-agua">
+          <h2 id="titulo-agua" class="text-xl md:text-2xl font-bold">Litros de agua donados por semana</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Agua que personas de la comunidad han donado y el comedor ya recibió, agrupada por semana. ODS 12 y ODS 17.</p>
+          <p id="estado-agua" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-agua" class="relative w-full hidden" style="height: 320px;">
+            <canvas id="grafica-agua" role="img" aria-label="Gráfica de barras de litros de agua donados por semana"></canvas>
+          </div>
+        </section>
+
+        <!-- 5. Horas de voluntariado (ODS 17) -->
+        <section class="bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-horas">
+          <h2 id="titulo-horas" class="text-xl md:text-2xl font-bold">Horas de voluntariado por fecha</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Horas aportadas por personas voluntarias cuya asistencia fue registrada por el comedor. ODS 17.</p>
+          <p id="estado-horas" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-horas" class="relative w-full hidden" style="height: 320px;">
+            <canvas id="grafica-horas" role="img" aria-label="Gráfica de barras de horas de voluntariado por fecha"></canvas>
+          </div>
+        </section>
+
+      </div>
     </section>
-    <!-- Dashboard de impacto con gráficas de Chart.js (platos servidos, agua, beneficiados, horas de voluntariado).
-       Diseño: Persona 2. Gráficas (js/impacto.js): Persona 5. -->
   </main>
 
   <footer id="pie"></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="js/impacto.js"></script>
 </body>
 </html>
