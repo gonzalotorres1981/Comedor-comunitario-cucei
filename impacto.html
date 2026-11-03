@@ -32,7 +32,39 @@
           <div id="contenedor-resumen" class="relative w-full hidden" style="height: min(58vh, 460px); min-height: 300px;">
             <canvas id="grafica-resumen" role="img" aria-label="Gráfica de barras de reservas, platos preparados, platos servidos y platos sobrantes por fecha"></canvas>
           </div>
+          <p id="nota-martes-resumen" class="mt-4 text-xs text-tinta-2 hidden"></p>
           <p class="mt-4 text-xs text-tinta-2">Los platos preparados y servidos pueden aparecer sin valor cuando el comedor todavía no los ha registrado. Los platos sobrantes son la diferencia entre preparados y servidos.</p>
+        </section>
+
+        <!-- 1b. Predicción de demanda (ODS 2 y 12) -->
+        <section class="md:col-span-2 bg-superficie rounded-2xl shadow-sm border border-black/10 p-4 md:p-6" aria-labelledby="titulo-prediccion">
+          <h2 id="titulo-prediccion" class="text-xl md:text-2xl font-bold">Predicción de demanda del comedor</h2>
+          <p class="text-sm text-tinta-2 mt-1 mb-4">Estimación de cuántos platos conviene preparar el próximo martes, calculada con el promedio de platos servidos en los martes anteriores. Puede ayudar a ajustar la preparación a la demanda real y a reducir el desperdicio de alimentos (ODS 2 y ODS 12).</p>
+          <p id="estado-prediccion" class="text-sm text-tinta-2 mb-4" role="status" aria-live="polite">Cargando datos…</p>
+          <div id="contenedor-prediccion" class="w-full hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              <div class="rounded-xl border border-black/10 p-3">
+                <p class="text-sm text-tinta-2">Demanda estimada</p>
+                <p id="prediccion-estimado" class="text-3xl font-bold mt-1" style="color: #3E9B5A;">–</p>
+                <p class="text-xs text-tinta-2 mt-1">Platos para el próximo martes</p>
+              </div>
+              <div class="rounded-xl border border-black/10 p-3">
+                <p class="text-sm text-tinta-2">Promedio histórico</p>
+                <p id="prediccion-promedio" class="text-3xl font-bold mt-1">–</p>
+                <p class="text-xs text-tinta-2 mt-1">Platos servidos por martes</p>
+              </div>
+              <div class="rounded-xl border border-black/10 p-3">
+                <p class="text-sm text-tinta-2">Martes considerados</p>
+                <p id="prediccion-martes" class="text-3xl font-bold mt-1">–</p>
+                <p class="text-xs text-tinta-2 mt-1">Con platos servidos registrados</p>
+              </div>
+            </div>
+            <div class="relative w-full" style="height: min(50vh, 380px); min-height: 280px;">
+              <canvas id="grafica-prediccion" role="img" aria-label="Gráfica de barras de platos servidos en martes anteriores y la predicción de platos para el próximo martes"></canvas>
+            </div>
+            <p id="nota-martes-prediccion" class="mt-4 text-xs text-tinta-2 hidden"></p>
+            <p class="mt-1 text-xs text-tinta-2">La estimación es el promedio de los platos efectivamente servidos en esos martes.</p>
+          </div>
         </section>
 
         <!-- 2. Reservas por carrera (ODS 2) -->
