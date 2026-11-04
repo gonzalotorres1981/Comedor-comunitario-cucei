@@ -14,6 +14,9 @@
 // - sb.rpc('beneficiados_por_semestre')  → beneficiados por semestre
 // - sb.rpc('horas_voluntariado')         → horas de voluntariado
 //
+// - La predicción de demanda NO usa una función nueva: se calcula en el navegador
+//   con los platos servidos que ya devuelve sb.rpc('resumen_semanal').
+//
 // `sb` ya existe: viene de js/supabase.js.
 //
 // Mensajes: al público solo se le muestran los textos de MENSAJES.
@@ -24,12 +27,18 @@
 const MENSAJES = {
   cargando: 'Cargando datos…',
   vacio: 'No hay datos disponibles por el momento.',
+  pocosDatos: 'Aún no hay suficientes registros para estimar la demanda.',
   errorDatos: 'No se pudieron cargar los datos.',
   errorGrafica: 'No se pudo cargar esta gráfica.'
 };
 
 // ---------- Utilidades ----------
 const FORMATO_NUMERO = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 1 });
+const FORMATO_DOS_DECIMALES = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 2 });
+
+// Cuántos martes se muestran en las gráficas por fecha (resumen y predicción).
+// Los datos anteriores siguen en la base de datos; solo no se dibujan.
+const MAX_MARTES_MOSTRADOS = 5;
 
 // Registro técnico: solo consola, nunca la interfaz.
 function registrarError(contexto, error) {
@@ -95,6 +104,28 @@ if (window.matchMedia) {
   });
 }
 
+// Una misma RPC se pide una sola vez por carga, aunque la usen varias gráficas
+// (resumen_semanal alimenta la gráfica de comidas y la de predicción).
+const consultasEnCurso = new Map();
+function consultarRpc(nombre) {
+  if (!consultasEnCurso.has(nombre)) {
+    consultasEnCurso.set(nombre, Promise.resolve(sb.rpc(nombre)));
+  }
+  return consultasEnCurso.get(nombre);
+}
+
+function mostrarNota(id, texto) {
+  const elemento = document.getElementById(id);
+  if (!elemento) return;
+  elemento.textContent = texto;
+  elemento.classList.remove('hidden');
+}
+
+function escribirTexto(id, texto) {
+  const elemento = document.getElementById(id);
+  if (elemento) elemento.textContent = texto;
+}
+
 // ---------- Estado de cada tarjeta ----------
 function mostrarEstado(id, mensaje, tipo = 'normal') {
   const elemento = document.getElementById(`estado-${id}`);
@@ -149,7 +180,8 @@ function opcionesBase({ tituloX, tituloY, horizontal = false, leyenda = false })
 function dibujarResumen(canvas, datos) {
   const filas = datos
     .filter(f => fechaLegible(f.fecha) !== null)
-    .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+    .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))
+    .slice(-MAX_MARTES_MOSTRADOS); // solo los últimos martes
   if (filas.length === 0) return false;
 
   const etiquetas = filas.map(f => fechaLegible(f.fecha));
@@ -202,6 +234,7 @@ function dibujarResumen(canvas, datos) {
     },
     options: opciones
   });
+  mostrarNota('nota-martes-resumen', `Se muestran únicamente los últimos ${MAX_MARTES_MOSTRADOS} martes.`);
   return true;
 }
 
@@ -383,9 +416,106 @@ function dibujarHoras(canvas, datos, contexto) {
   return true;
 }
 
-// ---------- Definición de las cinco gráficas ----------
+// ---------- Gráfica de predicción de demanda (usa resumen_semanal) ----------
+// Predicción = suma de platos servidos en los últimos martes (MAX_MARTES_MOSTRADOS) / número de martes usados.
+// Se usan los PLATOS SERVIDOS (no las reservas). Los martes sin platos servidos registrados no cuentan.
+const MIN_MARTES_PREDICCION = 2;
+
+function fechaAISO(fecha) {
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  return `${fecha.getFullYear()}-${mes}-${dia}`;
+}
+
+// Primer martes a partir de hoy que todavía no tenga platos servidos registrados.
+function proximoMartes(fechasConServidos) {
+  const fecha = new Date();
+  fecha.setHours(0, 0, 0, 0);
+  while (fecha.getDay() !== 2) fecha.setDate(fecha.getDate() + 1);
+  while (fechasConServidos.has(fechaAISO(fecha))) fecha.setDate(fecha.getDate() + 7);
+  return fechaAISO(fecha);
+}
+
+function dibujarPrediccion(canvas, datos, contexto) {
+  const filas = datos
+    .map(f => ({ fecha: f.fecha, servidos: numeroONulo(f.platos_servidos) }))
+    .filter(f => f.servidos !== null && fechaLegible(f.fecha) !== null)
+    .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))
+    .slice(-MAX_MARTES_MOSTRADOS); // el promedio usa solo los últimos martes con platos servidos
+
+  if (filas.length < MIN_MARTES_PREDICCION) {
+    contexto.mensajeVacio = MENSAJES.pocosDatos;
+    return false;
+  }
+
+  const promedio = filas.reduce((suma, f) => suma + f.servidos, 0) / filas.length;
+  const estimado = Math.round(promedio);
+  const fechaProximo = proximoMartes(new Set(filas.map(f => String(f.fecha))));
+
+  const verde = PALETA.verde;
+  const opciones = opcionesBase({
+    tituloX: 'Martes',
+    tituloY: 'Platos',
+    leyenda: true
+  });
+  // Barras apiladas: así cada martes tiene una sola barra centrada
+  // (los datos históricos y la predicción nunca coinciden en la misma fecha).
+  opciones.scales.x.stacked = true;
+  opciones.scales.y.stacked = true;
+  opciones.scales.x.ticks = { ...opciones.scales.x.ticks, autoSkip: false, maxRotation: 60 };
+  opciones.interaction = { mode: 'index', intersect: false };
+  opciones.plugins.tooltip = {
+    filter: item => item.parsed.y !== null,
+    callbacks: {
+      title: items => items.map(i => i.dataIndex < filas.length
+        ? fechaLegible(filas[i.dataIndex].fecha)
+        : `Próximo martes (${fechaLegible(fechaProximo)})`),
+      label: ctx => ctx.datasetIndex === 0
+        ? `${FORMATO_NUMERO.format(ctx.parsed.y)} platos servidos`
+        : `${FORMATO_NUMERO.format(ctx.parsed.y)} platos estimados (promedio ${FORMATO_DOS_DECIMALES.format(promedio)})`
+    }
+  };
+
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: [...filas.map(f => fechaLegible(f.fecha, false)), 'Próximo martes'],
+      datasets: [
+        {
+          label: 'Platos servidos',
+          data: [...filas.map(f => f.servidos), null],
+          backgroundColor: verde,
+          borderColor: verde,
+          borderWidth: 1,
+          borderRadius: 4,
+          maxBarThickness: 48
+        },
+        {
+          // La predicción se distingue por el relleno claro y el borde marcado.
+          label: 'Predicción',
+          data: [...filas.map(() => null), estimado],
+          backgroundColor: 'rgba(62, 155, 90, 0.30)',
+          borderColor: verde,
+          borderWidth: 2,
+          borderRadius: 4,
+          maxBarThickness: 48
+        }
+      ]
+    },
+    options: opciones
+  });
+
+  escribirTexto('prediccion-estimado', FORMATO_NUMERO.format(estimado));
+  escribirTexto('prediccion-promedio', FORMATO_DOS_DECIMALES.format(promedio));
+  escribirTexto('prediccion-martes', String(filas.length));
+  mostrarNota('nota-martes-prediccion', `Solo se toman en cuenta los últimos ${MAX_MARTES_MOSTRADOS} martes con platos servidos registrados.`);
+  return true;
+}
+
+// ---------- Definición de las gráficas ----------
 const GRAFICAS = [
   { id: 'resumen',  rpc: 'resumen_semanal',           dibujar: dibujarResumen },
+  { id: 'prediccion', rpc: 'resumen_semanal',         dibujar: dibujarPrediccion },
   { id: 'carrera',  rpc: 'beneficiados_por_carrera',  dibujar: dibujarCarrera },
   { id: 'semestre', rpc: 'beneficiados_por_semestre', dibujar: dibujarSemestre },
   { id: 'agua',     rpc: 'litros_de_agua',            dibujar: dibujarAgua },
@@ -410,7 +540,7 @@ async function cargarGrafica(config) {
   // 1) Consulta
   let datos;
   try {
-    const respuesta = await sb.rpc(rpc);
+    const respuesta = await consultarRpc(rpc);
     if (respuesta.error) throw respuesta.error;
     datos = respuesta.data;
   } catch (error) {
@@ -434,7 +564,7 @@ async function cargarGrafica(config) {
     if (!dibujada) {
       console.warn(`[impacto] rpc("${rpc}") devolvió filas, pero ninguna tenía los campos esperados.`, datos);
       mostrarContenedor(id, false);
-      mostrarEstado(id, MENSAJES.vacio);
+      mostrarEstado(id, contexto.mensajeVacio || MENSAJES.vacio);
       return;
     }
     mostrarEstado(id, contexto.nota);
@@ -453,6 +583,7 @@ let impactoIniciado = false;
 async function iniciarImpacto() {
   if (impactoIniciado) return;
   impactoIniciado = true;
+  consultasEnCurso.clear();
   if (typeof Chart !== 'undefined') Chart.defaults.color = colorTexto();
   // Se limpia cualquier estado oculto de una carga anterior.
   GRAFICAS.forEach(g => document.getElementById(`estado-${g.id}`)?.classList.remove('hidden'));
