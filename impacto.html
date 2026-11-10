@@ -117,6 +117,15 @@
           <div id="contenedor-agua" class="relative w-full hidden" style="height: 320px;">
             <canvas id="grafica-agua" role="img" aria-label="Gráfica de barras de litros de agua donados por semana"></canvas>
           </div>
+          <!-- Se muestra cuando todavía no hay agua registrada (ver js/impacto.js) -->
+          <div id="vacio-agua" class="hidden flex flex-col items-center justify-center gap-4 text-center" style="min-height: 280px;">
+            <svg class="gota-flota h-24 w-24" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+              <path d="M32 4C32 4 12 27 12 40a20 20 0 0 0 40 0C52 27 32 4 32 4z" fill="#7FB3F0" stroke="var(--c-borde)" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M22 40a10 10 0 0 0 7 9.5" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+            </svg>
+            <p class="max-w-xs text-balance text-lg font-extrabold">Todavía nadie ha donado agua. ¿Quieres ser la primera persona en hacerlo?</p>
+            <a href="donaciones.html" class="btn btn-sec">Donar agua</a>
+          </div>
         </section>
 
         <!-- 5. Horas de voluntariado (ODS 17) -->
