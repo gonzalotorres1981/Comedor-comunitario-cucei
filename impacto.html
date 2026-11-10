@@ -14,13 +14,35 @@
 <body class="flex flex-col min-h-screen bg-fondo font-cuerpo text-cuerpo text-tinta">
   <header id="encabezado"></header>
 
-  <main class="flex-1">
-    <section class="w-full max-w-5xl mx-auto px-4 pt-12 pb-16">
-      <div class="max-w-3xl mb-8">
+  <main class="flex-1 overflow-x-clip">
+    <div class="w-full max-w-5xl mx-auto px-4 pt-12">
+      <div class="max-w-3xl">
         <p class="font-bold uppercase tracking-wide text-sm">Comedor Comunitario CUCEI</p>
         <h1 class="font-titulo text-h1 mt-2">Nuestro impacto</h1>
         <p class="mt-4 max-w-prose">Consulta qué ha pasado en el comedor: reservas, comidas, agua donada y horas de voluntariado.</p>
       </div>
+    </div>
+
+    <!-- ============ TENDEDERO DE FOTOS ============ -->
+    <!-- Las fotos se suben al bucket "impacto" de Supabase Storage (ver js/tendedero.js) -->
+    <section class="mt-10" aria-labelledby="t-tendedero">
+      <div class="max-w-5xl mx-auto px-4 flex flex-wrap items-end justify-between gap-3">
+        <h2 id="t-tendedero" class="font-titulo text-h2 sm:text-4xl text-secundario">Así se vive el comedor</h2>
+        <div id="tendedero-controles" hidden>
+          <button type="button" id="tendedero-pausa" class="btn btn-sec text-sm" aria-pressed="false" aria-controls="tendedero">
+            <span>Pausar</span>
+          </button>
+        </div>
+      </div>
+      <div class="tendedero-marco mt-4">
+        <div class="tendedero-mecate" aria-hidden="true"></div>
+        <ul id="tendedero" class="tendedero-pista" role="list" aria-label="Fotos del comedor">
+          <li class="tendedero-aviso">Cargando fotos…</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="w-full max-w-5xl mx-auto px-4 pt-6 pb-16">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -117,5 +139,6 @@
   <script src="js/supabase.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script src="js/impacto.js"></script>
+  <script src="js/tendedero.js"></script>
 </body>
 </html>

@@ -354,3 +354,78 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 body:has(.visor[open]) { overflow: hidden; } /* sin scroll de fondo */
 @media (prefers-reduced-motion: reduce) { .visor[open] { animation: none; } }
+
+/* ---------- Tendedero de fotos (impacto.html) ---------- */
+.tendedero-marco {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem 0 2.5rem;
+}
+/* Mecate torcido que cruza toda la pantalla */
+.tendedero-mecate {
+  position: absolute;
+  inset-inline: 0;
+  top: 2rem;
+  height: 7px;
+  border-radius: var(--radio-pill);
+  background: repeating-linear-gradient(-60deg, #E8C894 0 5px, #A8743F 5px 8px);
+  box-shadow: 0 3px 0 rgb(43 29 34 / 0.25);
+}
+.tendedero-pista {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+}
+.tendedero-marco.en-marcha .tendedero-pista {
+  animation: tendedero-avanza var(--duracion, 60s) linear infinite;
+}
+.tendedero-marco.pausado .tendedero-pista,
+.tendedero-marco:hover .tendedero-pista,
+.tendedero-marco:focus-within .tendedero-pista { animation-play-state: paused; }
+@keyframes tendedero-avanza { to { transform: translateX(-50%); } }
+
+.prenda {
+  position: relative;
+  flex: none;
+  width: 12rem;
+  margin-inline: 1.25rem;       /* margen (no gap) para que las dos mitades midan igual */
+  padding-top: 1.6rem;
+  rotate: var(--r, 0deg);
+  transform-origin: 50% 0.75rem;
+  animation: prenda-mece 4.5s ease-in-out var(--d, 0s) infinite alternate;
+}
+@media (min-width: 640px) { .prenda { width: 14rem; margin-inline: 1.75rem; } }
+@keyframes prenda-mece {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(2deg); }
+}
+.prenda .nota { padding: 0.6rem 0.6rem 0.9rem; }
+.pinza {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: 20px;
+  height: 52px;
+  translate: -50% 0;
+  filter: drop-shadow(2px 2px 0 rgb(43 29 34 / 0.3));
+}
+#tendedero-pausa {
+  font-size: 0.8125rem;
+  padding: 0.3rem 0.85rem;
+  box-shadow: var(--sombra-dura-press);
+}
+.tendedero-aviso {
+  width: 100%;
+  padding: 3.5rem 1rem 0;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+/* Sin animaciones: se recorre con el dedo o la barra, sin copias repetidas */
+@media (prefers-reduced-motion: reduce) {
+  .tendedero-marco { overflow-x: auto; }
+  .tendedero-marco.en-marcha .tendedero-pista, .prenda { animation: none; }
+  .prenda[data-copia] { display: none; }
+  #tendedero-controles { display: none; }
+}
