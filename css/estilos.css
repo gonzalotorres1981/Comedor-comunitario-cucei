@@ -297,6 +297,17 @@ a { -webkit-tap-highlight-color: transparent; }
   .nota:hover, .nota:active { transform: none; }
 }
 
+/* Gota de agua del aviso "sin donaciones" (impacto.html) */
+.gota-flota {
+  filter: drop-shadow(3px 3px 0 rgb(43 29 34 / 0.25));
+  animation: gota-flota 2.8s ease-in-out infinite alternate;
+}
+@keyframes gota-flota {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) { .gota-flota { animation: none; } }
+
 /* Cinta adhesiva de collage */
 .cinta {
   position: absolute;

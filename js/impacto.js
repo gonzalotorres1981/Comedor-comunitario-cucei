@@ -135,6 +135,18 @@ function mostrarEstado(id, mensaje, tipo = 'normal') {
   elemento.classList.add(tipo === 'error' ? 'text-error' : 'text-tinta-2');
 }
 
+// Algunas tarjetas tienen un aviso propio para cuando no hay datos (por ejemplo, #vacio-agua).
+// Si existe, se muestra en lugar del texto genérico de MENSAJES.vacio.
+function mostrarVacio(id, mensaje) {
+  const aviso = document.getElementById(`vacio-${id}`);
+  if (!aviso) {
+    mostrarEstado(id, mensaje);
+    return;
+  }
+  aviso.classList.remove('hidden');
+  document.getElementById(`estado-${id}`)?.classList.add('hidden');
+}
+
 function mostrarContenedor(id, visible) {
   const contenedor = document.getElementById(`contenedor-${id}`);
   if (contenedor) contenedor.classList.toggle('hidden', !visible);
@@ -551,7 +563,7 @@ async function cargarGrafica(config) {
 
   // 2) Sin registros (distinto de un error de consulta)
   if (!Array.isArray(datos) || datos.length === 0) {
-    mostrarEstado(id, MENSAJES.vacio);
+    mostrarVacio(id, MENSAJES.vacio);
     return;
   }
 
@@ -564,7 +576,7 @@ async function cargarGrafica(config) {
     if (!dibujada) {
       console.warn(`[impacto] rpc("${rpc}") devolvió filas, pero ninguna tenía los campos esperados.`, datos);
       mostrarContenedor(id, false);
-      mostrarEstado(id, contexto.mensajeVacio || MENSAJES.vacio);
+      mostrarVacio(id, contexto.mensajeVacio || MENSAJES.vacio);
       return;
     }
     mostrarEstado(id, contexto.nota);
