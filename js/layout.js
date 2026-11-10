@@ -118,7 +118,7 @@ const FOOTER = `
       </div>
     </div>
     <div class="space-y-2 text-center md:text-right">
-      <p class="flex items-center justify-center gap-2 md:justify-end">${ARROBA}<a class="font-bold underline decoration-2 underline-offset-4 hover:text-acento" href="https://www.instagram.com/movimientoestudiantil_cucei/">@movimientoestudiantil_cucei</a></p>
+      <p class="flex items-center justify-center gap-2 md:justify-end">${ARROBA}<a class="font-bold underline decoration-2 underline-offset-4 hover:text-acento" href="https://www.instagram.com/movimientoestudiantil_cucei/">movimientoestudiantil_cucei</a></p>
       <p class="flex items-center justify-center gap-2 md:justify-end">${SOBRE}<a class="break-all underline decoration-2 underline-offset-4 hover:text-acento" href="mailto:cucei.comedorcomunitario@gmail.com">cucei.comedorcomunitario@gmail.com</a></p>
       <p><a class="underline decoration-2 underline-offset-4 hover:text-acento" href="privacidad.html">Aviso de privacidad</a></p>
       <ul class="flex flex-wrap justify-center gap-2 pt-3 md:justify-end" aria-label="Objetivos de Desarrollo Sostenible">
