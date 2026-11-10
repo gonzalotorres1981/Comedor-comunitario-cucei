@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/admin-invitaciones.css">
 </head>
 <body>
 
@@ -36,6 +37,7 @@
     <button role="tab" data-tab="reservas" aria-selected="false">Reservas</button>
     <button role="tab" data-tab="donaciones" aria-selected="false">Donaciones</button>
     <button role="tab" data-tab="voluntariado" aria-selected="false">Voluntariado</button>
+    <button role="tab" data-tab="invitaciones" aria-selected="false">Invitaciones</button>
   </nav>
 
   <!-- MARTES -->
@@ -114,10 +116,43 @@
       <div id="lista-turnos"></div>
     </div>
   </section>
+
+  <!-- INVITACIONES -->
+  <section id="tab-invitaciones" hidden>
+    <div class="hoja">
+      <h3 style="font-size:22px;">Publicar la invitación de un martes</h3>
+      <p>Sube la imagen tal como la descargaste (JPG, PNG o WebP). La página la optimiza sola y la publica con la fecha del martes que elijas.</p>
+
+      <div class="inv-grid">
+        <label class="inv-drop" id="inv-drop" for="inv-archivo">
+          <input id="inv-archivo" type="file" accept="image/png,image/jpeg,image/webp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+          <strong>Arrastra la imagen aquí o toca para elegirla</strong>
+          <small>JPG, PNG o WebP</small>
+        </label>
+        <div class="inv-vista" id="inv-vista" aria-live="polite">
+          <p class="inv-vacio">La vista previa aparecerá aquí.</p>
+        </div>
+      </div>
+
+      <div class="form inv-form">
+        <div><label for="inv-martes">Martes de la invitación</label><select id="inv-martes"></select></div>
+        <div><button class="btn" type="button" id="inv-publicar" disabled>Publicar invitación</button></div>
+      </div>
+      <div class="msg" id="msg-inv" role="status"></div>
+    </div>
+
+    <div class="hoja seccion">
+      <h3>Invitaciones publicadas</h3>
+      <div id="inv-lista" class="inv-lista"></div>
+      <div class="msg" id="msg-inv-lista" role="status"></div>
+    </div>
+  </section>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/admin-invitaciones.js"></script>
 </body>
 </html>
