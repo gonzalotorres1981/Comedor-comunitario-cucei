@@ -13,6 +13,11 @@ const PAGINAS = [
 // Para agregar las de los carteles, copia el texto tal cual y pon el autor.
 const CITAS = [
   { texto: "La comida es un derecho, no un negocio.", autor: "" },
+  { texto: "Comer bien no es un privilegio de quien puede pagarlo, sino un derecho de cada persona.", autor: "" },
+  { texto: "La alimentación escolar digna es el primer paso hacia una educación pública libre de desigualdades.", autor: "" },
+  { texto: "La alimentación es una responsabilidad colectiva, no una línea de mercado.", autor: "" },
+  { texto: "Nutrir a las escuelas es cultivar justicia social.", autor: "" },
+  { texto: "El hambre del estudiantado no se vende ni se negocia.", autor: "" },
 ];
 
 // Funciona con "menu.html" y con "/menu" (Netlify)
@@ -75,7 +80,7 @@ const HEADER = `
   </nav>
   <div class="mt-auto pt-8 text-center">
     <img src="img/mov-estudiantil-tinta.svg" alt="Sello del Movimiento Estudiantil CUCEI" class="mx-auto h-28 w-28 object-contain sm:h-32 sm:w-32 dark:invert">
-    <p class="cita mt-3">« ${cita.texto} »</p>
+    <p class="cita mt-3 text-balance">«&nbsp;${cita.texto}&nbsp;»</p>
   </div>
 </aside>`;
 
@@ -107,7 +112,7 @@ const FOOTER = `
           <li class="flex items-center justify-center gap-2 sm:justify-start">${PIN}<span>Edificio "Y" (frente al Chedraui)</span></li>
         </ul>
         <figure class="mt-4">
-          <blockquote class="cita text-acento">« ${cita.texto} »</blockquote>
+          <blockquote class="cita text-acento text-balance">«&nbsp;${cita.texto}&nbsp;»</blockquote>
           ${cita.autor ? `<figcaption class="mt-1 text-sm font-bold text-crema/80">— ${cita.autor}</figcaption>` : ""}
         </figure>
       </div>
